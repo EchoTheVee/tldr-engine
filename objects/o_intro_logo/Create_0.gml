@@ -1,10 +1,8 @@
 event_inherited();
 
-//call_later(1, time_source_units_frames, function(){
-	fader_fade(1, 0, 0);
-	audio_play(snd_intro_noise);
-	audio_sound_gain(snd_intro_noise, 1);
-//})
+fader_fade(1, 0, 0);
+audio_play(snd_intro_noise);
+audio_sound_gain(snd_intro_noise, 1);
 
 x = GAME_W/2;
 y = GAME_H/2;

@@ -946,7 +946,6 @@
     {"id":{"name":"mus_intro_legend_neo","path":"sounds/mus_intro_legend_neo/mus_intro_legend_neo.yy",},},
     {"id":{"name":"mus_intro_legend","path":"sounds/mus_intro_legend/mus_intro_legend.yy",},},
     {"id":{"name":"mus_menu","path":"sounds/mus_menu/mus_menu.yy",},},
-    {"id":{"name":"mus_quiet_church","path":"sounds/mus_quiet_church/mus_quiet_church.yy",},},
     {"id":{"name":"mus_story","path":"sounds/mus_story/mus_story.yy",},},
     {"id":{"name":"snd_attack","path":"sounds/snd_attack/snd_attack.yy",},},
     {"id":{"name":"snd_break1","path":"sounds/snd_break1/snd_break1.yy",},},
