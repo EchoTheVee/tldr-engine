@@ -1,15 +1,6 @@
 /// @description theme set
-var completed = false;
+var completed = save_is_chapter_completed();
 var slots = save_read_all(global.chapter)
-for(var i = 0; i < array_length(slots); i++)
-{
-    slots[i] = save_convert(slots[i]);
-    if slots[i].COMPLETED == true
-    {
-        completed = true;
-        break;
-    }
-}
 
 var theme = completed ? global.registered_chapters[global.chapter-1].save_theme_completed : global.registered_chapters[global.chapter-1].save_theme_default;
 
@@ -52,22 +43,21 @@ if theme == SAVE_SELECT_THEME.OMINOUS {
 		m_copycant = "copycant"
 		m_copysuccess = function(prev) {
 			if (prev == 22 || prev == 21) && state == 0 {
-				if files[0] != -1 {
-					var p = prepared
-					var f = 1
-					var a = [files[0].NAME, files[0].TIME]
-					for (var i = 0; i < array_length(self.files); ++i) {
-						if self.files[i] != -1 {
-							if files[i].NAME == a[0] && files[i].TIME == a[1] {}
-							else 
-								f = 0
-						}
-					}
-					
-					prepared = f
-					if p && f 
+				if files[0] != -1 { // check if all saves are identical (very specific secret in DR)
+                	var prepared_previous = prepared;
+                    
+                    prepared = true;
+                	var reference_save = [files[0].NAME, files[0].TIME];
+                	for (var i = 0; i < array_length(files); ++i) {
+                		if is_struct(files[i]) || (files[i].NAME == reference_save[0] && files[i].TIME == reference_save[1]) {
+                			prepared = false; 
+                			break;
+                		}
+                	}
+                    
+					if prepared_previous && prepared
 						return "copysuccess_weird"
-					if f 
+					else if prepared
 						return "copysuccess_prepared"
 				}
 			}

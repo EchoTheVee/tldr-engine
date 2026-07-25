@@ -63,7 +63,7 @@ if instance_exists(o_dev_savewipe_prompt)
 instance_create(o_ui_quit)
 
 // -------------------------------- set up saves -------------------------------------
-global.chapter = 1
+global.chapter = 2
 global.time = 0
 
 // load the default items
@@ -73,7 +73,7 @@ array_push(global.key_items, new item_key_cell_phone())
     // base player data
     save_entry("NAME", "PLAYER")
     save_entry("ROOM", room_test_main, undefined, function() { return room })
-    save_entry("ROOM_NAME", "", function(_conv_data){ global.room_name = _conv_data }, function(){ return global.room_name })
+    save_entry("ROOM_NAME", "Default Room Name", function(_conv_data){ global.room_name = _conv_data }, function(){ return global.room_name })
     
     save_entry("TIME", global.time, function(_conv_data){ global.time = _conv_data }, function(){ return global.time })
     save_entry("CHAPTER", global.chapter, function(_conv_data){ global.chapter = _conv_data }, function(){ return global.chapter })
@@ -82,9 +82,6 @@ array_push(global.key_items, new item_key_cell_phone())
     save_entry("EXP", 0)
     
     save_entry("CRYSTAL", false)
-    save_entry("COMPLETED", false)
-    save_entry("COMPLETE_ROOM", "undefined")
-    save_entry("COMPLETE_TIME", 0)
     
     // light world data
     save_entry("LW_NAME", loc("party_kris_name"))

@@ -47,20 +47,12 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _i
 			// determine right intro sequence
 			var _introseq = intro_seq_default;
 			
-			var _anySaves = save_exists(0) || save_exists(1) || save_exists(2);
-			var _anyCompletedSave = false;
-			
-			for (var i=0; i<SAVE_SLOTS; i++) {
-				if caller.save_chs[global.chapter-1] != -1 && caller.save_chs[global.chapter-1][i] != -1 {
-					_anyCompletedSave += caller.save_chs[global.chapter-1][i][1];
-					_anyCompletedSave = min(_anyCompletedSave, 1);
-				}
-			}
+			var _anySaves = save_is_chapter_played();
+			var _anyCompletedSave = save_is_chapter_completed();
 	
 			if _anySaves {
-				if !_anyCompletedSave {
+				if !_anyCompletedSave
 					_introseq = object_exists(intro_seq_midgame) ? intro_seq_midgame : intro_seq_default;
-				}
 			}
 			else {
 				_introseq = object_exists(intro_seq_first_run) ? intro_seq_first_run : intro_seq_default;	
