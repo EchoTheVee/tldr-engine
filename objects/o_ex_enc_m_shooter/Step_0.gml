@@ -8,7 +8,7 @@ else {
         timer --
 	siner ++
 	
-	if siner == 1 exit
+	if siner < 10 exit
 	
 	if sguy_amp < 10 && start_timer sguy_amp += .5
 	
@@ -16,7 +16,7 @@ else {
 		// move around shadowguys and snap socks
 		for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 			var _enemy = o_enc.encounter_data.enemies[i]
-			if _enemy.name == "Shadowguy" && enc_enemy_isfighting(i) && instance_exists(_enemy.actor_id){
+			if _enemy.name == "Shadowguy" && enc_enemy_is_fighting(i) && instance_exists(_enemy.actor_id){
 				var e_o = _enemy.actor_id
 				e_o.x = saved_pos[i][0] + sin((siner + e_o.moveseed[1]) / e_o.moveseed[0]) * sguy_amp
 				e_o.y = saved_pos[i][1] + cos((siner + e_o.moveseed[1]) / e_o.moveseed[0]) * sguy_amp/2 + sin((siner + 30) / 14) * (16 * sguy_amp/10)
@@ -34,7 +34,7 @@ else {
 	var xrange = 50
 	var yrange = 60
 	
-	if InputPressed(INPUT_VERB.SPECIAL) && !start_timer{
+	if InputCheck(INPUT_VERB.SPECIAL) && !start_timer{
 		start_timer = true
 		event_user(0)
 	}
