@@ -2,11 +2,11 @@ global.party = {}
 
 /// @desc intializes the party stuff
 function party_init() {
-	party_m_initialize("flow", party_m_flow)
     party_m_initialize("kris", party_m_kris)
     party_m_initialize("susie", party_m_susie)
     party_m_initialize("ralsei", party_m_ralsei)
     party_m_initialize("noelle", party_m_noelle)
+	party_m_initialize("flow", party_m_flow)
     
 	global.party_names = []
 }
@@ -17,9 +17,9 @@ function party_m_initialize(_name, _constructor) {
 /// @desc applies the equipment to party members (only for raw saves)
 function party_apply_equipment() {
     for (var i = 0; i < party_length(true); i ++) {
-        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
-        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
-        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
+        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i]);
+        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i]);
+        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i]);
     }
 }
 function party_m_calculate_hp(base_hp, level) {
@@ -32,6 +32,8 @@ function party_m_calculate_hp(base_hp, level) {
 }
     
 function party_m(_initialized_name) constructor {
+    __constructable = false; // make sure the save system doesn't take them as constructables
+    
 	name = "???"
     initialized_name = _initialized_name
     action_letter = "?"
@@ -213,7 +215,8 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
     armor2 = new item_a_ambercard()
 	spells = [
 		new item_s_rudebuster(),
-        new item_s_susieheal()
+        new item_s_susieheal({progress: 3, uses: 0}),
+        new item_s_scythemare()
 	]
 	
 	// sprites
@@ -281,12 +284,13 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
     armor2 = new item_a_white_ribbon()
 	spells = [
 		new item_s_pacify(),
-		new item_s_healprayer()
+		new item_s_healprayer(),
+        new item_s_revivesong(),
 	]
 	
 	// sprites
     s_name = "ralsei"
-	s_state =		"" // sad, sad_subtle, hat
+	s_state =		"" // sad, sad_subtle, hat, serious
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head
@@ -312,6 +316,8 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 		victory: [spr_bralsei_victory, true],
 		spare: [spr_bralsei_act, "idle", 1],
 		attack_eff: spr_bralsei_attackeff,
+        revivesong_sing_ready: spr_ralsei_sing_ready,
+        revivesong_sing: spr_ralsei_sing,
 	}
 }
 function party_m_noelle(_initialized_name) : party_m(_initialized_name) constructor {
@@ -383,6 +389,8 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 }
 
 function party_m_flow(_initialized_name) constructor {
+    //__constructable = false; // make sure the save system doesn't take them as constructables
+    
 	name = "Flow"
     initialized_name = _initialized_name
     action_letter = "F"
@@ -399,7 +407,7 @@ function party_m_flow(_initialized_name) constructor {
 	iconcolor =	c_orange
 	
 	// stats
-	lv =	save_get("chapter")+1
+	lv =	(save_get("chapter") + 1)
 	desc =	"Batccentric weilding blunt ravager."
 	power_stats = [
 		["--", 0, spr_ui_menu_icon_exclamation],
@@ -421,14 +429,12 @@ function party_m_flow(_initialized_name) constructor {
 	armor2 = undefined
 	spells = [
 		new item_s_act(),
-		//new item_s_acttest(),
-		//new item_s_testdmg(),
 	]
 	
 	// sprites config
     s_name = "flow"
     s_prefix = ""
-    s_scheme = "spr_{0}_{1}_{2}" 
+    s_scheme = "spr_{0}_{1}_{2}"
     s_scheme_addelements = []
     s_fallback = spr_default
     

@@ -15,14 +15,12 @@ function ex_enemy_shadowguy() : enemy() constructor{
     s_spare = spr_ex_e_sguy_spare
     
     boogie_sprites = {
-        kris: spr_ex_kris_boogie,
-		flow: spr_ex_flow_boogie
+        kris: spr_ex_kris_boogie
     }
 	shoot_sprites = {
 		kris: spr_ex_kris_costume,
 		susie: spr_ex_susie_costume,
 		ralsei: spr_ex_ralsei_costume,
-		flow: spr_ex_ralsei_costume
 	}
 	
 	// acts
@@ -139,6 +137,7 @@ function ex_enemy_spawnling() : enemy() constructor{
     
     can_spare = false
     mercy_add_pity_percent = 0
+	no_mercy_text = "* But, it was not something that can understand MERCY."
     
     // sprites
     s_idle = spr_ex_e_spawnling
@@ -174,6 +173,7 @@ function ex_enemy_dentos() : enemy() constructor{
     
     can_spare = false
     mercy_add_pity_percent = 0
+	no_mercy_text = "* But, it was not something that can understand MERCY."
 	
     // sprites
     s_idle = spr_ex_e_dentos

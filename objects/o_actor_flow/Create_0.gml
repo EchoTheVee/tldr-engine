@@ -1,3 +1,3 @@
 event_inherited()
 name = "flow"
-is_party = false
+is_party = true

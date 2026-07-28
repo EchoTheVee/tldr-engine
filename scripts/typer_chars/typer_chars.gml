@@ -73,6 +73,7 @@ function typer_char_noelle() : typer_char() constructor {
     face_sprite = spr_face_noelle
     voice = snd_text_noelle
 }
+
 function typer_char_flow() : typer_char() constructor {
     name = "flow"
     

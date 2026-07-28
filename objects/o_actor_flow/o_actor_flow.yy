@@ -33,12 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_flow_down",
-    "path":"sprites/spr_flow_down/spr_flow_down.yy",
+    "name":"spr_flow_down1",
+    "path":"sprites/spr_flow_down1/spr_flow_down1.yy",
   },
   "spriteMaskId":{
-    "name":"spr_flow_down",
-    "path":"sprites/spr_flow_down/spr_flow_down.yy",
+    "name":"spr_flow_down1",
+    "path":"sprites/spr_flow_down1/spr_flow_down1.yy",
   },
   "visible":true,
 }

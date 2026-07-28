@@ -24,16 +24,11 @@
   "physicsGroup":1,
   "physicsKinematic":false,
   "physicsLinearDamping":0.1,
-  "physicsObject":true,
+  "physicsObject":false,
   "physicsRestitution":0.1,
   "physicsSensor":false,
   "physicsShape":1,
-  "physicsShapePoints":[
-    {"x":0.0,"y":0.0,},
-    {"x":20.0,"y":0.0,},
-    {"x":20.0,"y":20.0,},
-    {"x":0.0,"y":20.0,},
-  ],
+  "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"item_inside","filters":[

@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_flow_txt",
   "parent":{
-    "name":"engine",
-    "path":"folders/@Engine/scripts/systems/engine.yy",
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

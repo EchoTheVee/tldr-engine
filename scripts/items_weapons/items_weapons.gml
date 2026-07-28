@@ -29,8 +29,7 @@ function item_w_spookysword() : item_weapon() constructor {
 	reactions = {
 		susie: "Ugh, it's too small!",
 		ralsei: "Oh, it's too scary!",
-        noelle: "(It's kinda cool...)",
-		flow: "It's not my style."
+        noelle: "(It's kinda cool...)"
 	}
     
     buy_price = 200
@@ -61,8 +60,7 @@ function item_w_wood_blade() : item_weapon() constructor {
 	reactions = {
 		susie: "What's this!? A CHOPSTICK?",
 		ralsei: "That's yours, Kris...",
-        noelle: "(It has bite marks...)",
-		flow: "Pathetic."
+        noelle: "(It has bite marks...)"
 	}
     
     sell_price = 30
@@ -95,7 +93,6 @@ function item_w_saber10() : item_weapon() constructor {
 		susie: "Nah, I'd snap it.",
 		ralsei: "You want to... pierce my ears...?",
 		noelle: "(I'm not against using it, but...)",
-		flow: "Kinda like thorns."
 	}
     
     sell_price = 355
@@ -133,7 +130,6 @@ function item_w_jingleblade() : item_weapon() constructor {
 		susie: "Sleigh the bad guys.",
 		ralsei: "Mmm! Minty and festive!",
 		noelle: "What is this, a barber pole?",
-		flow: "Looks like Antler's would love this."
 	}
     
     sell_price = 617
@@ -164,7 +160,6 @@ function item_w_mane_ax() : item_weapon() constructor {
 		susie: "I'm too GOOD for that.",
 		ralsei: "Ummm... it's a bit big.",
 		noelle: "It... smells nice...",
-		flow: "I don't do Axes."
 	}
     
     sell_price = 40
@@ -190,7 +185,6 @@ function item_w_devilsknife() : item_weapon() constructor {
 		susie: "Let the games begin!",
 		ralsei: "It's too, um, evil.",
 		noelle: "...? It smiled at me?",
-		flow: "I'm not gonna do anything with that." 
 	}
     
     can_sell = false
@@ -215,7 +209,6 @@ function item_w_absorbax() : item_weapon() constructor {
 		susie: "Scoopin' time.",
 		ralsei: "Don't scoop me!",
 		noelle: "That red... is that blood?",
-		flow: "Neat."
 	}
     
     sell_price = 617
@@ -236,7 +229,6 @@ function item_w_red_scarf() : item_weapon() constructor {
 		susie: "No. Just... no.",
 		ralsei: "Comfy! Touch it, Kris!",
 		noelle: "Huh? No, I'm not cold.",
-		flow: "It looks like it would be scratchy."
 	}
     
     sell_price = 50
@@ -258,7 +250,6 @@ function item_w_flexscarf() : item_weapon() constructor {
 		susie: "Looks like a giant caterpillar.",
 		ralsei: "So pliable, like me!",
 		noelle: "Twist it and... it's a wreath!",
-		flow: "Wacky inflatable tube scarf."
 	}
     
     sell_price = 360
@@ -280,7 +271,6 @@ function item_w_puppetscarf() : item_weapon() constructor {
 		susie: "No way, that's creepy.",
 		ralsei: "If I have to fight...",
 		noelle: "(Feels like guitar strings...)",
-		flow: "..."
 	}
     
     can_sell = false
@@ -301,7 +291,6 @@ function item_w_snowring() : item_weapon() constructor {
 		susie: "Smells like Noelle",
 		ralsei: "Are you... proposing?",
 		noelle: "(Thank goodness...)",
-		flow: "I don't wear jewelry"
 	}
     
     sell_price = 50
@@ -323,7 +312,6 @@ function item_w_freezering() : item_weapon() constructor {
 		susie: "Heh, you steal this? Heh.",
 		ralsei: "It's beautiful...",
 		noelle: "...",
-		flow: "Ew, it's cold."
 	}
     
     sell_price = 500

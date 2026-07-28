@@ -3,7 +3,7 @@ chapters = [
 		name: "New In Town", // will be localized when drawn
 		exec: function(caller) {
 			music_stop(0)
-			audio_play(snd_chs_chp1_fs)
+			audio_play(snd_ui_scary)
 			
 			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
@@ -61,7 +61,7 @@ chapters = [
 		name: "Monsters Live",
 		exec: function(caller){
 			music_stop(0)
-			audio_play(snd_chs_chp4_fs)
+			audio_play(snd_chs_ch4)
 			
 			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
@@ -80,7 +80,7 @@ chapters = [
 		name: "Early Morning",
 		exec: function(caller){
 			music_stop(0)
-			audio_play(snd_chs_chp5_fs)
+			audio_play(snd_chs_ch4)
 			
 			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
@@ -93,7 +93,7 @@ chapters = [
 				room_goto(room_save_select)
 			})
 		},
-		icon: spr_ui_chs_ch5,
+		icon: spr_ui_chs_ch4,
 	},
 	-1,
 	-1,
