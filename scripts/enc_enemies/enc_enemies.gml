@@ -15,7 +15,6 @@ function enemy() constructor {
 	mercy =	0
     mercy_add_pity_percent = 20
     can_spare = true
-	no_mercy_text = "* But you couldn't spare it, for some reason."
     
 	tired =	false
     low_hp_tired = true // whether the enemy should turn tired when hp is low
@@ -28,16 +27,16 @@ function enemy() constructor {
 			desc: "Useless analysis",
 			party: [],
             tp_cost: 0, // optional, 0 by default
-            color: c_white, // color of the act. can be callable
             
             enabled: true, // optional, true by default. can also be callable
             perform_act_anim: true, // optional, true by default
             return_to_idle_sprites: true, // optional, true by default
             
-			exec: function(enemy_slot, user_index) {
+			exec: function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
 			},
             exec_args: []
+            
 		},
 	]
 	acts_special = {}
@@ -222,7 +221,7 @@ function enemy_virovirokun() : enemy() constructor{
                             a._start()
 					}
 					for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-						if enc_enemy_is_fighting(i) {
+						if enc_enemy_isfighting(i) {
 							if is_instanceof(o_enc.encounter_data.enemies[i], enemy_virovirokun)
 								enc_enemy_add_spare(i, 100)
 							else 
@@ -274,8 +273,6 @@ function enemy_killercar() : enemy() constructor{
 	defense = 0
     turn_object = o_ex_turn_complex_box
     carrying_money = 1
-    
-    tired = true
     
     hp = 600
     max_hp = 600
@@ -333,7 +330,7 @@ function enemy_killercar() : enemy() constructor{
                 
                 cutscene_audio_play(snd_spellcast)
                 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
-                    if !enc_enemy_is_fighting(i)
+                    if !enc_enemy_isfighting(i)
                         continue
                     cutscene_func(function(index) {
                         var __e_obj = o_enc.encounter_data.enemies[index].actor_id

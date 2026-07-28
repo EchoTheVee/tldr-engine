@@ -2,8 +2,6 @@ function item() constructor {
 	name = ["Item"] // short, then long (first is default). each one can be callable
 	desc = ["Overworld Description", "Battle Text", "Action Description", "Shop Description"] // ow, battle, action, shop
 	type = ITEM_TYPE.CONSUMABLE
-	tp_cost = 0
-	color = c_white
 	
 	lw_counterpart = undefined // reference a script, nothing appears in the light world if it's undefined
 	dw_counterpart = undefined // reference a script, nothing appears in the dark world if it's undefined
@@ -26,15 +24,17 @@ function item() constructor {
 		}, // out of 1
 	}
     stats_misc = {} // money_modifier
-	reactions = {} // entries inside can be callable
-    apply = function(party_name) {}
-    deapply = function(party_name) {}
     
 	effect = undefined // (struct with the sprite key and text key)
 	icon = spr_ui_menu_icon_exclamation
+	
+	tp_cost = 0
+	color = c_white
     
     // party act specific
     perform_act_anim = true
+	
+	reactions = {} // entries inside can be callable
     
     use_instant = function(item_index, target_index) {}
     use_instant_cancel = function(item_index, target_index) {}
@@ -43,11 +43,11 @@ function item() constructor {
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
     
-    unequipped = function(new_item_index, target_index) {}
+    unequipped = function(new_item_index) {}
 	
 	buy_price = 0 // can be callable
-    sell_price = undefined // can be callable. if undefined, will be sold for half its buy price
-    shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
+    // sell_price = 0 // can be callable
+     shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
     can_sell = true // determines whether it can be sold to vendors
 }
 
@@ -75,16 +75,16 @@ enum ITEM_DESC_TYPE {
 ///@desc returns the maximum amount of items you can hold depending on the item type
 function item_get_maxcount(type = ITEM_TYPE.CONSUMABLE) {
 	if type == ITEM_TYPE.CONSUMABLE
-		return 12;
+		return 12
 	if type == ITEM_TYPE.STORAGE
-		return global.storage_pages * 12;
+		return 24
 	
-	return 48;
+	return 48
 }
 
 ///@desc deletes an item according to its type
 function item_delete(item_slot, type = ITEM_TYPE.CONSUMABLE) {
-	if type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR
+	if type == ITEM_TYPE.STORAGE
 		item_get_array(type)[item_slot] = undefined
 	else 
 		array_delete(item_get_array(type), item_slot, 1)
@@ -110,16 +110,16 @@ function item_add(item_struct, type = undefined) {
     
 	var txt = loc_string("item_added", item_get_name(item_struct), item_get_store_name(type))
 	if can {
-		if type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR {
+		if type == ITEM_TYPE.STORAGE {
             var index = 0
-            for (var i = 0; i < item_get_maxcount(type); i ++) {
-                if is_undefined(item_get_array(type)[i]) {
+            for (var i = 0; i < item_get_maxcount(ITEM_TYPE.STORAGE); i ++) {
+                if is_undefined(item_get_array(ITEM_TYPE.STORAGE)[i]) {
                     index = i
                     break
                 }
             }
             
-			item_set(item_struct, index, type)
+			item_set(item_struct, index, ITEM_TYPE.STORAGE)
         }
         else
 			item_set(item_struct, item_get_count(type), type)
@@ -132,15 +132,12 @@ function item_add(item_struct, type = undefined) {
 
 ///@desc replaces an item in the array
 function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
-	if index >= item_get_count(type) && !(type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR)
+	if index >= item_get_count(type) && type != ITEM_TYPE.STORAGE
 		index = item_get_count(type)
 	array_set(item_get_array(type), index, item_struct)
 }
 
 ///@desc calls the item's use method
-/// @arg {struct.item} item_struct
-/// @arg {real} item_index
-/// @arg {real} target_index
 function item_use(item_struct, item_index, target) {
     if is_undefined(item_struct)
         return undefined
@@ -152,9 +149,6 @@ function item_use(item_struct, item_index, target) {
 }
 
 ///@desc calls the spell's use method
-/// @arg {struct.item_spell} spell_struct
-/// @arg {real} spell_user
-/// @arg {real} target_index
 function item_spell_use(spell_struct, spell_user, target) {
     if is_undefined(spell_struct)
         return undefined
@@ -188,9 +182,9 @@ function item_get_name(item_struct) {
 		return ret[0]
 	else if is_string(ret)
 		return ret
-    else if is_method(ret)
-        return variable_callable_to_value(ret);
-    return "item";
+    else if is_callable(ret)
+        return ret()
+    return ""
 }
 
 ///@desc returns the description of an item
@@ -207,8 +201,8 @@ function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL) {
 		return ret[(desc_type < array_length(ret) ? desc_type : 0)]
 	else if is_string(ret)
 		return ret
-    else if is_method(ret)
-        return variable_callable_to_value(ret);
+    else if is_callable(ret)
+        return ret()
     return ""
 }
 
@@ -219,7 +213,12 @@ function item_get_buy_price(item_struct) {
         return 0
     if !struct_exists(item_struct, "buy_price")
         return 0
-	return variable_callable_to_value(item_struct.buy_price);
+    
+    if is_real(item_struct.buy_price)
+        return item_struct.buy_price
+    else if is_callable(item_struct.buy_price)
+        return item_struct.buy_price()
+	return item_struct.buy_price
 }
 
 ///@desc returns the sell price of an item
@@ -227,9 +226,14 @@ function item_get_buy_price(item_struct) {
 function item_get_sell_price(item_struct) {
     if is_undefined(item_struct)
         return 0
-    if !struct_exists(item_struct, "sell_price") || is_undefined(item_struct.sell_price)
-        return round(item_get_buy_price(item_struct)/2);
-	return variable_callable_to_value(item_struct.sell_price);
+    if !struct_exists(item_struct, "sell_price")
+        return round(item_get_buy_price(item_struct)/2)
+    
+    if is_real(item_struct.sell_price)
+        return item_struct.sell_price
+    else if is_callable(item_struct.sell_price)
+        return item_struct.sell_price()
+	return item_struct.sell_price
 }
 
 ///@desc returns whether an item can be sold
@@ -239,7 +243,12 @@ function item_get_can_sell(item_struct) {
         return false
     if !struct_exists(item_struct, "can_sell")
         return true
-	return variable_callable_to_value(item_struct.can_sell);
+    
+    if is_bool(item_struct.can_sell)
+        return item_struct.can_sell
+    else if is_callable(item_struct.can_sell)
+        return item_struct.can_sell()
+	return item_struct.can_sell
 }
 
 ///@desc returns the amount of items in stock
@@ -252,7 +261,11 @@ function item_get_in_stock(item_struct) {
     
     if is_undefined(item_struct.shop_in_stock)
         return infinity
-	return variable_callable_to_value(item_struct.shop_in_stock);
+    else if is_real(item_struct.shop_in_stock)
+        return item_struct.shop_in_stock
+    else if is_callable(item_struct.shop_in_stock)
+        return item_struct.shop_in_stock()
+	return item_struct.shop_in_stock
 }
 
 ///@desc returns the type of an item
@@ -268,7 +281,14 @@ function item_get_fatal(item_struct) {
         return false
 	if !struct_exists(item_struct, "weapon_fatal")
 		return false
-	return variable_callable_to_value(item_struct.weapon_fatal);
+    
+    if is_real(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal
+    if is_bool(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal
+    else if is_callable(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal()
+    return false
 }
 
 /// @desc returns a statistic of an item. 0 if none defined
@@ -365,13 +385,19 @@ function item_menu_party_react(name, reaction) {
 ///@desc calls item_menu_party_react while extracting the reaction from the item struct. only used in the dark world overworld menu
 function item_menu_reaction(item_struct, user = 0) {
 	if item_struct.use_type == 0 {
-		var reaction = variable_callable_to_value(struct_get(item_struct.reactions, global.party_names[user]));
-		item_menu_party_react(global.party_names[user], reaction);
+		var reaction = struct_get(item_struct.reactions, global.party_names[user])
+        if is_callable(reaction)
+            reaction = reaction()
+        
+		item_menu_party_react(global.party_names[user], reaction)
 	}
 	else {
 		for (var i = 0; i < party_length(); ++i) {
-			var reaction = variable_callable_to_value(struct_get(item_struct.reactions, global.party_names[i]));
-			item_menu_party_react(global.party_names[i], reaction);
+			var reaction = struct_get(item_struct.reactions, global.party_names[i])
+            if is_callable(reaction)
+                
+                reaction = reaction()
+			item_menu_party_react(global.party_names[i], reaction)
 		}
 	}
 }
@@ -554,7 +580,6 @@ function item_apply(item_struct, party_name) {
         for (var i = 0; i < array_length(structnames); ++i) {
             party_adddata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
         }
-        method_call(item_struct.apply, [party_name]);
     }
 }
 /// @desc for weapons and armors
@@ -564,7 +589,6 @@ function item_deapply(item_struct, party_name) {
         for (var i = 0; i < array_length(structnames); ++i) {
             party_subtractdata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
         }
-        method_call(item_struct.deapply, [party_name]);
     }
 }
 

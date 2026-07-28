@@ -1,8 +1,8 @@
 global.console = true
 
-if keyboard_check_pressed(vk_right)
+if InputPressed(INPUT_VERB.RIGHT) 
 	selection ++
-else if keyboard_check_pressed(vk_left)
+else if InputPressed(INPUT_VERB.LEFT) 
 	selection --
 
 // cap selection
@@ -13,7 +13,7 @@ if selection > maxparty - 1
 
 xoff = lerp(xoff, selection, .4)
 
-if keyboard_check_pressed(vk_enter) {
+if InputPressed(INPUT_VERB.SELECT) {
 	audio_play(snd_metalhit)
 	var name = struct_get_names(global.party)[selection]
 	
@@ -22,6 +22,6 @@ if keyboard_check_pressed(vk_enter) {
 	else
 		party_member_kick(name)
 }
-if keyboard_check_pressed(vk_escape) {
+if InputPressed(INPUT_VERB.CANCEL) {
 	instance_destroy()
 }

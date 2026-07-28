@@ -79,6 +79,7 @@
     party_ui_lerp = array_create(party_length(), 0)
     party_ui_button_surf = array_create(party_length(), -1)
     party_state = array_create(party_length(), PARTY_STATE.IDLE)
+    party_hurt_timer = array_create(party_length(), 0)
     party_buttons = array_create_ext(party_length(), function(index) {
         var buttons = [
             new enc_button_fight(),
@@ -153,13 +154,15 @@ __button_highlight = function(button, party_name) {
 		for (var k = 0; k < array_length(party_getdata(party_name, "spells")); ++k) {
 			if party_getdata(party_name, "spells")[k].is_mercyspell {
 				__tgt_spell = party_getdata(party_name, "spells")[k]
+				__spellowner = party_getname(party_name)
+				
 				break
 			}
 		}
 		
 		// check whether we can pacify the enemy
 		for (var m = 0; m < array_length(encounter_data.enemies); ++m) {
-			if !enc_enemy_is_fighting(m) 
+			if !enc_enemy_isfighting(m) 
 				continue
 			
 			var _enemy = encounter_data.enemies[m]
@@ -177,7 +180,7 @@ __button_highlight = function(button, party_name) {
 		
 		// check whether we can spare the enemy
 		for (var m = 0; m < array_length(encounter_data.enemies); ++m) {
-			if !enc_enemy_is_fighting(m) 
+			if !enc_enemy_isfighting(m) 
 				continue
 			
 			var _enemy = encounter_data.enemies[m]
@@ -213,7 +216,7 @@ __battle_state_advance = function(state = battle_state) {
 
 __enemy_highlight = function(enemy_index) {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_is_fighting(i)
+        if !enc_enemy_isfighting(i)
             continue
         if !instance_exists(encounter_data.enemies[i].actor_id)
             continue
@@ -226,7 +229,7 @@ __enemy_highlight = function(enemy_index) {
 }
 __enemy_highlight_reset = function() {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_is_fighting(i)
+        if !enc_enemy_isfighting(i)
             continue
         if !instance_exists(encounter_data.enemies[i].actor_id)
             continue
@@ -234,16 +237,11 @@ __enemy_highlight_reset = function() {
         encounter_data.enemies[i].actor_id.flashing = false
     }
 }
-__tp_update_cost = function(_item = undefined) {
-    with inst_tp_bar {
-        tp_cost_display = 0;
-        if is_struct(_item) && struct_exists(_item, "tp_cost") && other.tp >= _item.tp_cost
-            tp_cost_display = _item.tp_cost;
-    }
-}
 __ally_highlight = function(ally_index) {
     for (var i = 0; i < party_length(); ++i) {
         var inst = party_get_inst(global.party_names[i])
+        if !party_isup(global.party_names[i])
+            continue
         if !instance_exists(inst)
             continue
         
@@ -256,6 +254,8 @@ __ally_highlight = function(ally_index) {
 __ally_highlight_reset = function() {
     for (var i = 0; i < party_length(); ++i) {
         var inst = party_get_inst(global.party_names[i])
+        if !party_isup(global.party_names[i])
+            continue
         if !instance_exists(inst)
             continue
         
@@ -303,43 +303,34 @@ __act_sort = function(enemy_index) {
 	return acts
 }
 __item_sort = function(at_point = array_length(items_using)) {
-	var items = [];
-	var og_items = item_get_array(0)
-    for (var i = 0; i < array_length(og_items); i ++) {
-        array_push(items, og_items[i]);
-    }
-    
-	for (var i = array_length(items)-1; i >= 0; i --) {
+	var __items = variable_clone(item_get_array(0))
+	for (var i = array_length(__items)-1; i >= 0; i --) {
         if array_contains(items_using, i)
-            array_delete(items, i, 1);
+            array_delete(__items, i, 1)
     }
-	return items;
+	return __items
 }
 __spell_sort = function(party_name) {
     var spells = []
-    var og_spells = party_getdata(party_name, "spells")
-    for (var i = 0; i < array_length(og_spells); i ++) {
-        array_push(spells, og_spells[i]);
-    }
-    
+    spells = variable_clone(party_getdata(party_name, "spells"))
     for (var i = 0; i < array_length(struct_get(encounter_data.party_actions, party_name)); ++i) {
-        array_insert(spells, i, struct_get(encounter_data.party_actions, party_name)[i]);
+        array_insert(spells, i, struct_get(encounter_data.party_actions, party_name)[i])
     }
-    return spells;
+    return spells
 }
 
 /// @description calls events for all enemies and the encounter struct
 /// @arg {string} event_name starts with "ev_" (e.g. "ev_pre_dialogue")
 __call_enc_event = function(event_name) {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if enc_enemy_is_fighting(i) {
+        if enc_enemy_isfighting(i) {
             // call the pre-dialogue event for the enemies
-            if is_method(variable_struct_get(encounter_data.enemies[i], event_name))
-                variable_struct_get(encounter_data.enemies[i], event_name)();
+            if is_callable(variable_struct_get(encounter_data.enemies[i], event_name))
+                variable_struct_get(encounter_data.enemies[i], event_name)()
         }
     }
-    if is_method(variable_struct_get(encounter_data, event_name))
-        variable_struct_get(encounter_data, event_name)();
+    if is_callable(variable_struct_get(encounter_data, event_name))
+        variable_struct_get(encounter_data, event_name)()
 }
 
 enum BATTLE_MENU {

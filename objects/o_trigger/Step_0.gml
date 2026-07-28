@@ -1,7 +1,7 @@
 if place_meeting(x, y, get_leader()) {
-	if !triggered && !controlled_activation && can_trigger
+	if !triggered && !controlled_activation
 		event_user(0)
-    else if !triggered && controlled_activation && instance_exists(get_leader()) && get_leader()._checkmove() && can_trigger
+    if !triggered && controlled_activation && instance_exists(get_leader()) && get_leader()._checkmove()
         event_user(0)
     
     if triggered
