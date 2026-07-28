@@ -129,10 +129,28 @@ if is_player && check_canmove {
 		else // light world
 			instance_create(o_ui_menu_lw)
 	}
-	
-	// make steps and call the `__step` method
+}
+
+// if i am a follower and i am following the leader
+else if follow && is_follower && instance_exists(follow_target) {
+	if get_leader().moving {
+		array_insert_cycle(record, 0, __new_record());
+	}
+	__refresh_follow(pos);
+}
+else if sliding {
+	if instance_exists(slideinst) && !place_meeting(x, y, slideinst){
+		sliding = false
+		y -= global.slide_speed
+	}
+    
+	y += global.slide_speed
+}
+
+if (track_footsteps || is_player) {
+    // make steps and call the `__step` method
 	if !sliding {
-		if floor(image_index % image_number) % 2 != 0 {
+		if floor((image_index % image_number)*2) % 2 != 0 {
 			if !made_step {
                 __step(floor(image_index % image_number));
                 made_step = true;
@@ -141,34 +159,6 @@ if is_player && check_canmove {
 		else 
 			made_step = false;
 	}
-}
-
-// if i am a follower and i am following the leader
-else if follow && is_follower {
-	x = record[0][pos]
-	y = record[1][pos]
-	
-	dir = record[2][pos]
-	running = record[3][pos]
-	state = record[4][pos]
-	sliding = record[5][pos]
-	
-	if get_leader().moving {
-		array_insert_cycle(record[0], 0, get_leader().x)
-		array_insert_cycle(record[1], 0, get_leader().y)
-		array_insert_cycle(record[2], 0, get_leader().dir)
-		array_insert_cycle(record[3], 0, get_leader().running)
-		array_insert_cycle(record[4], 0, get_leader().state)
-		array_insert_cycle(record[5], 0, get_leader().sliding)
-	}
-}
-else if sliding{
-	if instance_exists(slideinst) && !place_meeting(x, y, slideinst){
-		sliding = false
-		y -= global.slide_speed
-	}
-    
-	y += global.slide_speed
 }
 
 moving = false
@@ -309,21 +299,45 @@ if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override {
 else if !is_in_battle && !is_enemy {
 	startedmoving = false
 	
-	if floor(image_index) % 2 == 0 && !s_override && s_dynamic {
-		image_speed = 0;
-		image_index = 0
-	}
+	if floor(image_index) % 2 == 0 && !s_override && s_dynamic && s_current_animation != ACTOR_ANIMATIONS.IDLE
+		s_current_animation = ACTOR_ANIMATIONS.IDLE;
 }
 
 // running sprites, walking sprites
 if !is_in_battle && !is_enemy && s_dynamic && !s_override {
-	if running && moving {
-		image_speed = s_run_ispd;
-		sprite_index = asset_get_index(sprite_get_name(s_move[dir]) + s_run_postfix)
-	}
-	else {
-		image_speed = s_walk_ispd;
-		sprite_index = s_move[dir]
+	if running && moving 
+        s_current_animation = ACTOR_ANIMATIONS.RUN;
+    else if moving
+        s_current_animation = ACTOR_ANIMATIONS.WALK;
+    
+    switch s_current_animation {
+        default: // idle
+            var possible_idle = s_idle[dir];
+            
+            if sprite_exists(possible_idle) { // switch to an idle sprite
+                sprite_index = possible_idle;
+                image_speed = s_idle_ispd;
+                
+                if s_previous_animation != s_current_animation 
+                    image_index = 0;
+            }
+            else { // using only the walk sprites
+                sprite_index = s_move[dir];
+                image_speed = 0;
+                image_index = 0;
+            }
+            
+            break;
+        case ACTOR_ANIMATIONS.WALK:
+            sprite_index = s_move[dir];
+            image_speed = s_walk_ispd;
+            
+            break;
+        case ACTOR_ANIMATIONS.RUN:
+            sprite_index = asset_get_index_state(sprite_get_name(s_move[dir]), s_run_postfix);
+            image_speed = s_run_ispd;
+            
+            break;
     }
 }
 

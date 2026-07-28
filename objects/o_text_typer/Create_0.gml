@@ -132,7 +132,7 @@ __play_voice = function(symbol, bypass_conditions = false) {
     // choose the voice blip randomly if it's an array
     if is_array(voice)
         __v = array_shuffle(__v)[0]
-    else if is_callable(voice)
+    else if is_method(voice)
         __v = voice(disp_chars)
     
     if audio_exists(__v) && (!bypass_conditions ? (!skipping && timer % voice_skip == 0) : true) {
@@ -153,15 +153,20 @@ __play_voice = function(symbol, bypass_conditions = false) {
         // work on the pitch
         var __pitch_calc = struct_get(char_presets, char).voice_pitch_calc
         
-        if !is_undefined(voice_pitchrange)
-            pitch = random_range(
+        if is_real(__pitch_calc)
+            pitch = __pitch_calc
+        else if is_method(__pitch_calc)
+            pitch = __pitch_calc()
+		else { // idk why the pitch would ever be set to anything but a method/real but id rather catch exceptions like these
+			show_debug_message("WARNING: pitch defined as non-real/non-method. Pitch has been set to 1.");
+			pitch = 1;
+		}
+			
+		if !is_undefined(voice_pitchrange)
+            pitch *= random_range(
                 voice_pitchrange[0],
                 voice_pitchrange[1]
             )
-        else if is_real(__pitch_calc)
-            pitch = __pitch_calc
-        else if is_callable(__pitch_calc)
-            pitch = __pitch_calc()
         
         // play unless it's a punctuation sign
         if struct_get(char_presets, char).voice != -1 && !array_contains(voice_skip_symbols, symbol)

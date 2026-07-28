@@ -213,13 +213,8 @@ if command == "unlink" || command == "npc_unlink" { // unlink(real)  you can lin
 }
 
 if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice box for the player
-    _facechange("none")
-    
-	choice_inst = instance_create(o_text_choice, x, y, depth, {
-		choices: arg,
-		caller: id,
-        box_height: (caller.object_index == o_ui_dialogue ? caller.height : 151)
-	})
+    _facechange("none");
+    text_typer_choicer(arg, id);
     
 	pause = -2
 	looping = false
@@ -328,7 +323,7 @@ if command == "char" { // char(`char_preset_string`, face_expression = undefined
     	voice_pitch_calc = struct_get(struct_get(char_presets, arg[0]), "voice_pitch_calc")
     	voice_interrupt = struct_get(struct_get(char_presets, arg[0]), "voice_interrupt")
     	voice_skip = struct_get(struct_get(char_presets, arg[0]), "voice_skip")
-        voice_pitchrange = undefined
+        voice_pitchrange = struct_get(struct_get(char_presets, arg[0]), "voice_pitchrange")
         
         var __char_font = struct_get(struct_get(char_presets, arg[0]), "font");
         if !is_undefined(__char_font) {
@@ -370,6 +365,22 @@ if command == "voice" { // voice(asset OR nil, pitch_range = undefined, interrup
 		voice_interrupt = string_to_bool(arg[2])
 	if array_length(arg) > 3 && arg[3] != "nil" 
 		voice_skip = string_to_bool(arg[3])
+}
+
+if command == "pitch" { // pitch([val OR min], [max]) -- setting no arguments resets pitch
+	if array_length(arg) > 0 {
+		if array_length(arg) == 1
+		{
+			voice_pitchrange = [arg[0], arg[0]];
+		}
+		else {
+			voice_pitchrange = [arg[0], arg[1]];
+		}
+	}
+	else {
+		voice_pitchrange = undefined;
+	}
+	
 }
 
 if command == "mini" { // mini(`text`, char = undefined, face_expression = undefined, x = `auto`, y = `auto`)
