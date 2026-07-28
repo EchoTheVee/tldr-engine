@@ -10,21 +10,21 @@ else {
 }
 
 if active {
-    held_keys = get_all_pressed_keys();
-    var target_command = command_find(held_keys);
-    
-	if !is_undefined(target_command)
-		keyhold ++
+	var curkey = chr(keyboard_key)
+	if keyboard_key == vk_tab
+		curkey = ""
+		
+	if struct_exists(registred_commands, string_lower(curkey))
+		keyhold += .1
 	else
 		keyhold = 0
 	
-	if keyhold >= keyhold_max {
+	if keyhold >= 1 {
 		active = false
 		keyhold = 0
-        
-		keyboard_clear(vk_tab);
-		curcommand = target_command.execute;
+		keyboard_clear(vk_tab)
+		curcommand = struct_get(registred_commands, string_lower(curkey)).execute
 		
-		event_user(0);
+		event_user(0)
 	}
 }

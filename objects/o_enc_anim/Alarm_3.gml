@@ -7,7 +7,6 @@ for (var i = 0; i < party_length(); ++i) {
     obj.image_index = 0
 }
 
-enc_setup();
 var inst = instance_create(o_enc,,,,{
 	encounter_data: encounter_data, 
 	save_pos,
@@ -15,7 +14,11 @@ var inst = instance_create(o_enc,,,,{
 })
 
 // do the initial flavor text
-inst.flavor = variable_callable_to_value(encounter_data.flavor);
+var flavor_text = encounter_data.flavor
+if is_callable(flavor_text)
+    flavor_text = flavor_text()
+
+inst.flavor = flavor_text
 
 var __vs = encounter_data.enc_var_struct
 var __names = struct_get_names(__vs)

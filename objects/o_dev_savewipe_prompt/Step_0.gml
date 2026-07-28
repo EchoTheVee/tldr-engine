@@ -5,12 +5,12 @@ alpha = lerp(alpha, 1, .2)
 if timer < 20
     exit
 
-if keyboard_check_pressed(vk_left)
+if InputPressed(INPUT_VERB.LEFT)
     selection = 0
-else if keyboard_check_pressed(vk_right)
+else if InputPressed(INPUT_VERB.RIGHT)
     selection = 1
 
-if keyboard_check_pressed(vk_enter) && selection != -1 {
+if InputPressed(INPUT_VERB.SELECT) && selection != -1 {
     if selection == 1 {
         if fatal
             game_end()
