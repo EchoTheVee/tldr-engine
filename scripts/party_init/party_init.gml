@@ -2,6 +2,7 @@ global.party = {}
 
 /// @desc intializes the party stuff
 function party_init() {
+	party_m_initialize("flow", party_m_flow)
     party_m_initialize("kris", party_m_kris)
     party_m_initialize("susie", party_m_susie)
     party_m_initialize("ralsei", party_m_ralsei)
@@ -379,4 +380,92 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 		spare: [spr_bnoelle_act, "idle", 1],
 		attack_eff: spr_bnoelle_attackeff,
 	}
+}
+
+function party_m_flow(_initialized_name) constructor {
+	name = "Flow"
+    initialized_name = _initialized_name
+    action_letter = "F"
+    obj = {
+		obj: o_actor_flow,
+		var_struct: {
+			name: "flow"
+		},
+	}
+	
+	// colors
+	color =		c_orange
+	darkcolor =	c_maroon
+	iconcolor =	c_orange
+	
+	// stats
+	lv =	save_get("chapter")+1
+	desc =	"Batccentric weilding blunt ravager."
+	power_stats = [
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["party_stat_guts", 3, spr_ui_menu_icon_fire],
+	]
+	
+	max_hp =	party_m_calculate_hp(95, lv)
+	hp =		max_hp
+	attack =	10
+	defense =	1
+	magic =		0
+	element_resistance = {
+	}
+	
+	// inventory
+	weapon = new item_w_batbat()
+	armor1 = undefined
+	armor2 = undefined
+	spells = [
+		new item_s_act(),
+		//new item_s_acttest(),
+		//new item_s_testdmg(),
+	]
+	
+	// sprites config
+    s_name = "flow"
+    s_prefix = ""
+    s_scheme = "spr_{0}_{1}_{2}" 
+    s_scheme_addelements = []
+    s_fallback = spr_default
+    
+	s_icon =		spr_ui_flow_icon
+	s_icon_ow =		spr_ui_flow_head
+	s_icon_weapon = spr_ui_menu_weapon_bat
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+    
+    // states
+	s_state =		""
+	s_substate =	""
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
+		act: [spr_bflow_act, true],
+		actready: spr_bflow_actready,
+		actend: [spr_bflow_actend, "idle", 1],
+		attack: [spr_bflow_attack, true],
+		attackready: spr_bflow_attackready,
+		defeat: spr_bsusie_defeat,
+		defend: [spr_bsusie_defend, true],
+		hurt: spr_bsusie_hurt,
+		idle: spr_bflow_idle,
+		intro: spr_susie_right,
+		introb: spr_susie_right,
+		itemuse: [spr_bsusie_item, "idle", 1],
+		itemready: spr_bsusie_itemready,
+		spell: [spr_bsusie_spell, "idle", 1],
+		spellready: spr_bsusie_spellready,
+		victory: [spr_bsusie_victory, true],
+		spare: [spr_bflow_act, "idle", 1],
+		attack_eff: spr_bflow_attackeff,
+	}
+		
+	// system
+	actor_id = o_actor_flow
+    
+    // methods
+    __get_cardinal = party_m_get_cardinal
+    __get_sprite = party_m_get_sprite
 }
