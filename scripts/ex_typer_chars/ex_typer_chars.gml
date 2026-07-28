@@ -11,3 +11,4 @@ function ex_typer_gerson() : typer_char() constructor {
         return 1
     }
 }
+

@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_bkris_attackeff",
-    "path":"sprites/spr_bkris_attackeff/spr_bkris_attackeff.yy",
+    "name":"spr_bflow_attackeff",
+    "path":"sprites/spr_bflow_attackeff/spr_bflow_attackeff.yy",
   },
   "spriteMaskId":null,
   "visible":true,

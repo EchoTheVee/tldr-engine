@@ -29,7 +29,8 @@ function item_w_spookysword() : item_weapon() constructor {
 	reactions = {
 		susie: "Ugh, it's too small!",
 		ralsei: "Oh, it's too scary!",
-        noelle: "(It's kinda cool...)"
+        noelle: "(It's kinda cool...)",
+		flow: "It's not my style."
 	}
     
     buy_price = 200
@@ -60,7 +61,8 @@ function item_w_wood_blade() : item_weapon() constructor {
 	reactions = {
 		susie: "What's this!? A CHOPSTICK?",
 		ralsei: "That's yours, Kris...",
-        noelle: "(It has bite marks...)"
+        noelle: "(It has bite marks...)",
+		flow: "Pathetic."
 	}
     
     sell_price = 30
@@ -93,6 +95,7 @@ function item_w_saber10() : item_weapon() constructor {
 		susie: "Nah, I'd snap it.",
 		ralsei: "You want to... pierce my ears...?",
 		noelle: "(I'm not against using it, but...)",
+		flow: "Kinda like thorns."
 	}
     
     sell_price = 355
@@ -130,6 +133,7 @@ function item_w_jingleblade() : item_weapon() constructor {
 		susie: "Sleigh the bad guys.",
 		ralsei: "Mmm! Minty and festive!",
 		noelle: "What is this, a barber pole?",
+		flow: "Looks like Antler's would love this."
 	}
     
     sell_price = 617
@@ -160,6 +164,7 @@ function item_w_mane_ax() : item_weapon() constructor {
 		susie: "I'm too GOOD for that.",
 		ralsei: "Ummm... it's a bit big.",
 		noelle: "It... smells nice...",
+		flow: "I don't do Axes."
 	}
     
     sell_price = 40
@@ -185,6 +190,7 @@ function item_w_devilsknife() : item_weapon() constructor {
 		susie: "Let the games begin!",
 		ralsei: "It's too, um, evil.",
 		noelle: "...? It smiled at me?",
+		flow: "I'm not gonna do anything with that." 
 	}
     
     can_sell = false
@@ -209,6 +215,7 @@ function item_w_absorbax() : item_weapon() constructor {
 		susie: "Scoopin' time.",
 		ralsei: "Don't scoop me!",
 		noelle: "That red... is that blood?",
+		flow: "Neat."
 	}
     
     sell_price = 617
@@ -229,6 +236,7 @@ function item_w_red_scarf() : item_weapon() constructor {
 		susie: "No. Just... no.",
 		ralsei: "Comfy! Touch it, Kris!",
 		noelle: "Huh? No, I'm not cold.",
+		flow: "It looks like it would be scratchy."
 	}
     
     sell_price = 50
@@ -250,6 +258,7 @@ function item_w_flexscarf() : item_weapon() constructor {
 		susie: "Looks like a giant caterpillar.",
 		ralsei: "So pliable, like me!",
 		noelle: "Twist it and... it's a wreath!",
+		flow: "Wacky inflatable tube scarf."
 	}
     
     sell_price = 360
@@ -271,6 +280,7 @@ function item_w_puppetscarf() : item_weapon() constructor {
 		susie: "No way, that's creepy.",
 		ralsei: "If I have to fight...",
 		noelle: "(Feels like guitar strings...)",
+		flow: "..."
 	}
     
     can_sell = false
@@ -291,6 +301,7 @@ function item_w_snowring() : item_weapon() constructor {
 		susie: "Smells like Noelle",
 		ralsei: "Are you... proposing?",
 		noelle: "(Thank goodness...)",
+		flow: "I don't wear jewelry"
 	}
     
     sell_price = 50
@@ -312,9 +323,175 @@ function item_w_freezering() : item_weapon() constructor {
 		susie: "Heh, you steal this? Heh.",
 		ralsei: "It's beautiful...",
 		noelle: "...",
+		flow: "Ew, it's cold."
 	}
     
     sell_price = 500
     
     item_localize("item_w_freezering")
 }  
+function item_w_thornring() : item_weapon() constructor {
+	name = ["ThornRing?"]
+	desc = ["Wearer takes damage from pain Reduces the TP cost of ice spells"]
+	
+	stats = {
+        attack: 14,
+        magic: 12,
+    } 
+	icon = spr_ui_menu_icon_ring
+	weapon_whitelist = ["noelle", "flow"]
+	
+	reactions = {
+		susie: "...",
+		ralsei: "...",
+		noelle: { noelle: "That's not the thorn ring is it?",
+		flow: "Nah.", },
+		flow: "Ow." 
+	}
+    
+    sell_price = 99999999999999999999999999999
+    
+    item_localize("item_w_thornring")
+}  
+
+// bats
+
+function item_w_batbat() : item_weapon() constructor {
+	name = ["BatBat"]
+	desc = ["An upgraded version of your bat.", "--"]
+	lw_counterpart = item_w_lw_bat
+    
+	stats = {
+		attack: 2, 
+	}
+	
+	icon = spr_ui_menu_icon_bat
+	
+	weapon_whitelist = ["flow"]
+	
+	reactions = {
+		kris: "...",
+		susie: "Ugh, lame, needs more spikes.",
+		ralsei: "Oh, no thank you.",
+        noelle: "(Brings back good memories...)",
+		flow: "Ol' reliable."
+	}
+    
+    can_sell = false
+    
+    item_localize("item_w_batbat")
+}
+function item_w_lw_bat() : item_weapon() constructor {
+    name = ["Old Bat"]
+	desc = ["* The bat you've had since the beginning.", "--"]
+	
+	stats = {
+        attack: 4,
+    }
+    
+    item_localize("item_w_lw_bat")
+}
+
+function item_w_vinebat() : item_weapon() constructor {
+	name = ["VineBat"]
+	desc = ["These vines are so thick, you could swear youre just holding a tree root.", "--"]
+	lw_counterpart = item_w_lw_bat
+    
+	stats = {
+		attack: 6, 
+	}
+	
+	icon = spr_ui_menu_icon_bat
+	
+	weapon_whitelist = ["flow"]
+	
+	reactions = {
+		kris: "...",
+		susie: "Sick branch!",
+		ralsei: "Looks a little heavy...",
+        noelle: "(Reminds me of the forest...)",
+		flow: "This'll do."
+	}
+    
+    can_sell = false
+    
+    item_localize("item_w_vinebat")
+}
+
+function item_w_biibat() : item_weapon() constructor {
+	name = ["BiiBat"]
+	desc = ["It unsurfaces a wave of e-motions long since past.", "--"]
+	lw_counterpart = item_w_lw_bat
+    
+	stats = {
+		attack: 3, 
+	}
+	
+	icon = spr_ui_menu_icon_bat
+	
+	weapon_whitelist = ["flow"]
+	
+	reactions = {
+		kris: "...",
+		susie: "Nerd.",
+		ralsei: "Looks like you can attach it to something!",
+        noelle: "(Looks like it's missing something?)",
+		flow: "Why does it have a hole in it?"
+	}
+    
+    can_sell = false
+    
+    item_localize("item_w_biibat")
+}
+
+function item_w_wireframebat() : item_weapon() constructor {
+	name = ["WireframeBat"]
+	desc = ["The base essentials of the bats polygonal structure.", "--"]
+	lw_counterpart = item_w_lw_bat
+    
+	stats = {
+		attack: 4, 
+	}
+	
+	icon = spr_ui_menu_icon_bat
+	
+	weapon_whitelist = ["flow"]
+	
+	reactions = {
+		kris: "...",
+		susie: "Trippy.",
+		ralsei: "You can see right through it.",
+        noelle: "(Looks like it hurts to hold...)",
+		flow: "Looks like it belongs in a blender."
+	}
+    
+    can_sell = false
+    
+    item_localize("item_w_wireframebat")
+}
+
+function item_w_battatbat() : item_weapon() constructor {
+	name = ["BattatBat"]
+	desc = ["You dont want this.", "--"]
+	lw_counterpart = item_w_lw_bat
+    
+	stats = {
+		attack: 0, 
+	}
+	
+	icon = spr_ui_menu_icon_bat
+	
+	weapon_whitelist = []
+	
+	reactions = {
+		kris: "...",
+		susie: "Oh hell no.",
+		ralsei: "Bats are more your thing.",
+        noelle: "...",
+		flow: "I dont fucking want this."
+	}
+    
+    can_sell = false
+    
+    item_localize("item_w_battatbat")
+}

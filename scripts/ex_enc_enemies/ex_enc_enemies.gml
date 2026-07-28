@@ -15,12 +15,14 @@ function ex_enemy_shadowguy() : enemy() constructor{
     s_spare = spr_ex_e_sguy_spare
     
     boogie_sprites = {
-        kris: spr_ex_kris_boogie
+        kris: spr_ex_kris_boogie,
+		flow: spr_ex_flow_boogie
     }
 	shoot_sprites = {
 		kris: spr_ex_kris_costume,
 		susie: spr_ex_susie_costume,
 		ralsei: spr_ex_ralsei_costume,
+		flow: spr_ex_ralsei_costume
 	}
 	
 	// acts

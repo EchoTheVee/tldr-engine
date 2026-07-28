@@ -11,6 +11,13 @@ function item_s_act() : item_spell() constructor {
 	
 	tp_cost = 0
 }
+
+function item_s_acttest() : item_spell() constructor {
+	name = [loc("Test Act")]
+	desc = [loc("Test your acting ability"), "--"]
+	
+	tp_cost = 0
+}
 	
 function item_s_rudebuster() : item_spell() constructor {
 	name = [loc("spell_rude_buster_name")]
