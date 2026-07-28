@@ -15,12 +15,7 @@ function onscreen(instance = id, tolerance = 0, percise_collisions = false) {
     if !instance_exists(instance)
         exit
     
-    if collision_rectangle(guipos_x() - tolerance, 
-        guipos_y() - tolerance, 
-        guipos_x() + o_camera.width + tolerance, 
-        guipos_y() + o_camera.height + tolerance, 
-        instance, percise_collisions, false
-    )
+    if collision_rectangle(guipos_x(), guipos_y(), guipos_x() + o_camera.width, guipos_y() + o_camera.height, instance, percise_collisions, false)
         return true
     else
         return false
@@ -137,26 +132,6 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
     return noone;
 }
 
-/**
- * plays a sound with decaying echo
- * @param {asset} sound the sound to play
- * @param {real} delay the delay between the echo instances
- * @param {real} decay the decay power of the echo
- * @param {real} [gain] the gain of the sound played. will be automatically mulitplied by the volume of the sound type
- * @param {real} [pitch] the pitch of the sound played
- */
-function audio_play_sound_echo(sound, delay = 10, decay = .2, gain = 1, pitch = 1) {
-    var _offset = 0;
-    for (var i = gain; i > 0; i -= decay) {
-        audio_play(
-            sound, false, 
-            i, pitch, 
-            false, AUDIO.SOUND, _offset
-        );
-        _offset += delay;
-    }
-}
-
 /// @desc returns an emitter based on an `AUDIO` sound type
 /// @arg {enum.AUDIO} sound_type
 function audio_get_target_emitter(sound_type) {
@@ -257,7 +232,7 @@ function draw_sprite_looped(offset, amp, sprite, image, xx, yy, xscale = 1, ysca
 /// @arg {real|undefined} img_fps the fps of the sprite on display. if set to undefined, the value will be auto determined depending on the sprite argument
 /// @arg {real} img_start_index the starting index of the animation. defaults to 0
 /// @arg {real|undefined} img_number the number of frames the animation has in total. if set to undefined, the value will be auto determined depending on the sprite argument
-function draw_get_subimg(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
+function draw_get_index_looped(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
     if !is_undefined(sprite) {
         img_fps ??= sprite_get_speed(sprite)
         img_number ??= sprite_get_number(sprite)
@@ -265,31 +240,6 @@ function draw_get_subimg(sprite = undefined, timer = o_world.frames, img_fps = u
     return floor((img_start_index + timer*img_fps/fps) % img_number)
 }
 
-/// @desc draws a cone based on two positions and a radius
-/// @arg {real} x1
-/// @arg {real} y1
-/// @arg {real} x2
-/// @arg {real} y2
-/// @arg {real} radius the radius of the end of the cone
-/// @arg {real} direction the direction of the cone's end
-function draw_cone(_x1, _y1, _x2, _y2, _radius, _direction = 0, _color = draw_get_colour(), _alpha = draw_get_alpha()) {
-    var dist = point_distance(_x1, _y1, _x2, _y2);
-    var og_color = draw_get_colour();
-    var og_alpha = draw_get_alpha();
-    
-    
-    draw_set_colour(_color);
-    draw_set_alpha(_alpha);
-    
-    draw_primitive_begin(pr_trianglelist);
-    draw_vertex(_x1, _y1);
-    draw_vertex(_x2 + lengthdir_x(_radius, _direction), _y2 + lengthdir_y(_radius, _direction));
-    draw_vertex(_x2 + lengthdir_x(_radius, _direction + 180), _y2 + lengthdir_y(_radius, _direction + 180));
-    draw_primitive_end();
-    
-    draw_set_colour(og_color);
-    draw_set_alpha(og_alpha);
-}
 
 // ------------- INSTANCE AND OBJECT STUFF --------------
 
@@ -334,6 +284,8 @@ function object_get_base_parent(o_index, stop_at = noone) {
 /// @desc returns an asset index with specified name but if the prefix version does not exists, returns the normal sprite
 function asset_get_index_state(str, state){
 	var ret = asset_get_index(str)
+    if !sprite_exists(ret)
+        return undefined
     
     var __states = string_split(state, "_", true)
 	
@@ -385,12 +337,6 @@ function array_sort_ext(array, sort_type_or_function) {
 	array_sort(arr, sort_type_or_function)
 	return arr
 }
-/// @desc finds a value and then deletes it
-function array_delete_by_value(_array, _value) {
-    var index = array_get_index(_array, _value);
-    array_delete(_array, index, 1);
-}
-
 /// @param {string}  substring  The string to find.
 /// @param {string}  fullstring  The string to find from.
 /// @description              Check if a string contains a string inside it.
@@ -480,16 +426,6 @@ function string_to_bool(_string) {
         return real(string_digits(_string)) > .5
 }
 
-function increment_towards(a, b, increment) {
-    var i = sign(b - a) * increment;
-    return clamp(a + i, min(a, b), max(a, b));
-}
-
-/// @desc Reset matrix
-function matrix_reset(){
-	matrix_set(matrix_world, matrix_build_identity())
-}
-
 
 // ------------ MISC FUNTIONS ---------------------
 function sine(INP_DEVIDE, OUT_MULTIPLY, input = undefined) {
@@ -507,15 +443,6 @@ function cosine(INP_DEVIDE, OUT_MULTIPLY, input = undefined) {
 	else
 		sine_output = cos(input/INP_DEVIDE) * OUT_MULTIPLY
 	return sine_output
-}
-
-/// @desc converts a callable (or not callable) variable into value
-/// @arg {function|any} variable the variable you'd like to convert
-/// @arg {array} arg_array the array of arguments you'd like to pass to the function if it's callable. empty by default
-function variable_callable_to_value(variable, arg_array = []) {
-    if is_method(variable)
-        return method_call(variable, arg_array);
-    return variable;
 }
 
 /// @desc makes a black fade
@@ -572,7 +499,7 @@ function afterimage(_decay_speed = 0.1, inst = id, gui = false, drawer = undefin
     _afterimage.image_angle = inst.image_angle
     _afterimage.decay_speed = _decay_speed
     
-    if !is_undefined(drawer) && is_method(drawer)
+    if !is_undefined(drawer) && is_callable(drawer)
         _afterimage.drawer = drawer
 
     return _afterimage;
@@ -602,39 +529,6 @@ function time_format(time_s, display_hours = true){
 		time = $"{time_m}:{time_s}"
 	
 	return time
-}
-
-/// @desc Move with collision without slope support and returns the id of what's being collided with. By notrealnevereveal
-function move_and_collide_simple(dx, dy, inst) {
-	var tx = sign(dx), ty = sign(dy), col = noone, colid = noone;
-
-	col = instance_place(x + dx, y, inst)
-	if col != noone {
-		repeat(abs(dx)+1) {
-            if place_meeting(x + tx, y, inst) 
-                break; 
-            x += tx;
-        }
-        
-		dx = 0;
-		colid = col;
-	}
-	x += dx;
-
-	col = instance_place(x, y + dy, inst);
-	if col != noone {
-		repeat(abs(dy) + 1) {
-            if place_meeting(x, y + ty, inst) 
-                break; 
-            y += ty;
-        }
-        
-		dy = 0;
-		colid = col;
-	}
-	y += dy;
-
-	return colid;
 }
 
 

@@ -3,7 +3,7 @@ if image_index == 1 {
 	exit
 }
 
-if is_method(open_override) {
+if is_callable(open_override) {
     open_override()
     exit
 }

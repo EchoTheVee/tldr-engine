@@ -36,7 +36,7 @@ if !only_hp { // top
 		if (i == i_pmselection || i_mode == 1) && state == 3 && selection == 0
 			draw_sprite_ext(spr_ui_menu_heart, 0, 18+213*i+xoff, 430+80-roll, 1, 1, 0, c_white, 1)
 		else
-			draw_sprite_ext(party_get_icon(global.party_names[i]), 0, 12 + 213*i + xoff, 430 + 80-roll, 1, 1, 0, c_white, 1)
+			draw_sprite_ext(party_geticon(global.party_names[i]), 0, 12 + 213*i + xoff, 430 + 80-roll, 1, 1, 0, c_white, 1)
 		
 		var font = global.font_name[0]
 		
@@ -62,7 +62,6 @@ if !only_hp { // top
 		draw_sprite_ext(spr_ui_hp_seperator, 0, 161 + 213*i + xoff, 428 + 80 - roll, 1, 1, 0, c_white, 1)
 		draw_text_transformed(205 + 213*i + xoff, 428 + 80 - roll, party_getdata(global.party_names[i], "max_hp"), 1, 1, 0)
         
-        gpu_set_colourwriteenable(true, true, true, false);
 		draw_set_color(c_white)
 		draw_set_halign(fa_left)
 		draw_set_font(loc_font("main"))
@@ -72,7 +71,6 @@ if !only_hp { // top
 		if is_string(partyreaction[i]) 
 			draw_text_transformed(213*i+xoff, 456 + 80 - roll, partyreaction[i], 1, 1, 0)
 		draw_set_alpha(1)
-        gpu_set_colourwriteenable(true, true, true, true);
 	}
 }	
 
@@ -166,7 +164,7 @@ if selection == 1 { // equip
 			if i == e_pmselection && state == 1 {
 				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 142, 1, 1, 0, c_red, 1)
 			}
-		    draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90 + 50*i + _l_offset, 160, 2, 2, 0, c, 1)
+		    draw_sprite_ext(party_geticon_ow(global.party_names[i]),0, 90 + 50*i + _l_offset, 160, 2, 2, 0, c, 1)
 		}
 		
 		draw_set_color(c_white)
@@ -192,7 +190,7 @@ if selection == 1 { // equip
 		
 		var arr_mod = []
 		array_copy(arr_mod, 0, arr, 0, array_length(arr))
-		//array_insert(arr_mod, 0, undefined)
+		array_insert(arr_mod, 0, undefined)
 		
 		var stats = [
 			[loc("menu_stat_attack"), party_getdata(global.party_names[e_pmselection], "attack"), spr_ui_menu_icon_sword],
@@ -405,7 +403,7 @@ if selection == 2 { // power
 			if i == p_pmselection && state == 1 {
 				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 141, 1, 1, 0, c_red, 1)
 			}
-		    draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90+50*i + _l_offset, 160, 2, 2, 0, c, 1)
+		    draw_sprite_ext(party_geticon_ow(global.party_names[i]),0, 90+50*i + _l_offset, 160, 2, 2, 0, c, 1)
 		}
 		
 		draw_set_color(c_white)
@@ -511,7 +509,7 @@ if selection == 3 && state > 0 { // config
                     break
                 case C_CONFIG_TYPE.SWITCH:
                     var __txt = "ON"
-                    if is_method(c_config[i].state) {
+                    if is_callable(c_config[i].state) {
                         var __tmp = c_config[i].state()
                         __txt = (__tmp ? "ON" : "OFF")
                     }

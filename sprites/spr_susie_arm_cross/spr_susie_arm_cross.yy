@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"poses",
-    "path":"folders/@Engine/sprites/actors/susie/poses.yy",
+    "name":"susie",
+    "path":"folders/@Engine/sprites/actors/susie.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

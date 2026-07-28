@@ -13,17 +13,16 @@ function get_leader(){
 
 /// @desc adds a party member to the end of the party ensemble
 /// @arg {string} name the name of the party member to add
-function party_member_add(name, _x = undefined, _y = undefined, _recalculate_positions = true) {
+function party_member_add(name) {
     array_push(global.party_names, name)
     
-    if instance_exists(get_leader()) {
-        _x ??= get_leader().x;
-        _y ??= get_leader().y;
-    }
+    if !instance_exists(get_leader())
+        exit
     
-    party_member_create(name, true, _x, _y);
-    if _recalculate_positions
-        party_reposition(_x, _y);
+    var lx = get_leader().x
+    var ly = get_leader().y
+    party_member_create(name)
+    party_reposition(lx, ly)
 }
 
 /// @desc kicks out a party member (and deletes their object, if applicable)
@@ -92,7 +91,6 @@ function party_member_create(name, recordnow = true, xx = get_leader().x, yy = g
 	var inst = actor_create(party_get_obj(name), xx, yy, get_leader().depth)
 	inst.is_follower = true
     inst.is_party = true
-    inst.follow_target = get_leader();
 	inst.pos = get_leader().spacing * party_get_index(name)
 	
 	with inst {
@@ -112,19 +110,17 @@ function party_member_interpolate(name){
 		exit
     
 	with party_get_inst(name) {
-        if !instance_exists(follow_target)
-            continue;
-        
-		var ddir = actor_angletodir(point_direction(x, y, follow_target.x, follow_target.y))
-		record[0].x = follow_target.x
-		record[0].y = follow_target.y
-		record[0].dir = follow_target.dir
-        
-		for (var i = pos; i > 0; i -= 1) {
-			record[i].x = lerp(follow_target.x, x, (i / pos));
-			record[i].y = lerp(follow_target.y, y, (i / pos));
-			record[i].dir = ddir;
-			record[i].running = false;
+		var ddir = actor_angletodir(point_direction(x, y, get_leader().x, get_leader().y))
+		record[0][0] = get_leader().x
+		record[1][0] = get_leader().y
+		record[2][0] = get_leader().dir
+		
+		for (var i = pos; i > 0; i -= 1)
+		{
+			record[0][i] = lerp(get_leader().x, x, (i / pos))
+			record[1][i] = lerp(get_leader().y, y, (i / pos))
+			record[2][i] = ddir
+			record[3][i] = false
 		}
 	}
 }
@@ -149,18 +145,18 @@ function party_reposition(lx = get_leader().x, ly = get_leader().y){
 		if instance_exists(party_get_inst(global.party_names[i])) {
 			var inst = party_get_inst(global.party_names[i])
 			inst.is_follower = true
-			inst.pos = get_leader().spacing * i;
+			inst.pos = get_leader().spacing * party_get_index(global.party_names[i])
 			
 			with inst { // set position, initialize the followers
 				if array_length(record) == 0 
-					event_user(1);
+					event_user(1)
 				
-				x = record[pos].x;
-				y = record[pos].y;
-				dir = record[pos].dir;
+				x = record[0][pos]
+				y = record[1][pos]
+				dir = record[2][pos]
 				
-				event_user(2);
-				init = true;
+				event_user(2)
+				init = true
 			}
 		}
 	}
@@ -214,7 +210,7 @@ function party_get_sprite_from_scheme(name, identifier, prefix = "", state = "",
 
 /// @desc  returns the party sprite with a certain naming scheme.
 /// the examples below are based on the following example sprite:
-/// `spr_ex_berdly_idle_down_sad`
+/// `spr_ex_berdly_down_sad`
 /// @param {string} name         the name of the party member
 /// @param {string} [prefix]     the sprite prefix (e.g. `ex`)
 /// @param {string} [state]      the actor state. always at the very end of the sprite name and not a part of the naming scheme (e.g. `sad`)
@@ -223,39 +219,11 @@ function party_get_sprite_from_scheme(name, identifier, prefix = "", state = "",
 /// @param {asset.gmsprite} [fallback]   the default sprite to use in case of failure
 /// @returns {array<Asset.GMSprite>}
 function party_get_cardinal(name, prefix = "", state = "", scheme = "spr_{0}_{1}_{2}", optional_arguments = [], fallback = spr_default) {
-    var cardinal = {
-        s_idle: [],
-    };
-    cardinal.s_idle[DIR.DOWN] = undefined;
-    cardinal.s_idle[DIR.LEFT] = undefined;
-    cardinal.s_idle[DIR.RIGHT] = undefined;
-    cardinal.s_idle[DIR.UP] = undefined;
-    
+    var cardinal = []
     for (var i = 0; i < 360; i += 90) {
-        var dir_string = dir_to_string(i);
-        
-        // old format will be counted as a walk sprite alternative
-        var old_format_sprite = party_get_sprite_from_scheme(name, dir_string, prefix, state, scheme, optional_arguments, fallback);
-        
-        var idle_sprite = party_get_sprite_from_scheme(name, "idle_" + dir_string, prefix, state, scheme, optional_arguments, fallback);
-        var walk_sprite = party_get_sprite_from_scheme(name, "walk_" + dir_string, prefix, state, scheme, optional_arguments, fallback);
-        
-        if sprite_exists(idle_sprite) && idle_sprite != fallback
-            array_set(struct_get(cardinal, "s_idle"), i, idle_sprite);
-        
-        if sprite_exists(walk_sprite) && walk_sprite != fallback {
-            if !struct_exists(cardinal, "s_move")
-                struct_set(cardinal, "s_move", []);
-            array_set(struct_get(cardinal, "s_move"), i, walk_sprite);
-        }
-        else if sprite_exists(old_format_sprite) && old_format_sprite != fallback {
-            if !struct_exists(cardinal, "s_move")
-                struct_set(cardinal, "s_move", []);
-            array_set(struct_get(cardinal, "s_move"), i, old_format_sprite);
-        }
+        cardinal[i] = party_get_sprite_from_scheme(name, dir_to_string(i), prefix, state, scheme, optional_arguments, fallback)
     }
-    
-    return cardinal;
+    return cardinal
 }
 
 /// @desc returns the array with the sprites for the actor's cardinal directions

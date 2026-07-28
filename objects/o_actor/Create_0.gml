@@ -2,6 +2,7 @@ event_inherited()
 collide = false
 
 name = ""
+state = -1
 
 // actor type
 is_enemy = false
@@ -32,9 +33,7 @@ is_party = false
 	chasing = false
 }
 { // actor variables
-	follow = true;
-    follow_target = get_leader();
-    
+	follow = true
 	hurt = 0 // the timer of the sprite switch
     link_id = undefined
 	
@@ -55,25 +54,17 @@ is_party = false
 		s_prefix = ""
 		s_override = false
 		s_dynamic = true
-        
-        // fallback move sprites
-		s_move[DIR.UP] = spr_kris_up;
-		s_move[DIR.DOWN] = spr_kris_down;
-		s_move[DIR.LEFT] = spr_kris_left;
-		s_move[DIR.RIGHT] = spr_kris_right;
-        
-        s_idle[DIR.UP] = undefined;
-        s_idle[DIR.DOWN] = undefined;
-        s_idle[DIR.LEFT] = undefined;
-        s_idle[DIR.RIGHT] = undefined;
-        
+	
+		s_move[DIR.UP] = spr_kris_up
+		s_move[DIR.DOWN] = spr_kris_down
+		s_move[DIR.LEFT] = spr_kris_left
+		s_move[DIR.RIGHT] = spr_kris_right
 		s_hurt = spr_e_virovirokun_hurt
 		s_ball = spr_kris_ball
 		s_landed = spr_kris_landed
 		s_slide = spr_kris_slide
 		s_run_postfix = ""
         
-        // climbing sprites
         s_climb = spr_kris_climb;
         s_climb_charge = spr_kris_climb_charge;
         s_climb_charge_left = spr_kris_climb_charge_left;
@@ -85,17 +76,8 @@ is_party = false
         s_climb_land_right = spr_kris_climb_land_right;
         s_climb_slip_fall = spr_kris_climb_slip_fall;
 	
-		s_idle_ispd = 1;
 		s_walk_ispd = 1;
 		s_run_ispd = 2;
-        
-        enum ACTOR_ANIMATIONS {
-            IDLE,
-            WALK,
-            RUN,
-        }
-        s_current_animation = ACTOR_ANIMATIONS.IDLE;
-        s_previous_animation = ACTOR_ANIMATIONS.IDLE;
 	}
 	
 	s_drawer = function(_sprite, _index, _xx, _yy, _xscale, _yscale, _angle, _blend, _alpha) {
@@ -168,20 +150,6 @@ is_party = false
 	init = false
 	
 	record = []
-    record_targets = [];
-    record_target = function(_var_name, _value_default, _refresh_method = method(self, function(_record) { 
-        variable_instance_set(save_self, var_name, struct_get(_record, var_name)); 
-    })) constructor {
-        var_name = _var_name;
-        save_self = other.id;
-        
-        value_default = _value_default;
-        value_get = method(self, function(follow_target) {
-            return variable_instance_get(follow_target, var_name);
-        })
-        
-        refresh_method = _refresh_method;
-    }
     
     dodge_outline_surf = -1
     dodge_mysoul = noone
@@ -189,10 +157,6 @@ is_party = false
     last_walk_frame = 0;
     last_walk_buffer = 0;
     alpha_mod = 1;
-    
-    queued_sprite = noone;
-    queued_sprite_index = 0;
-    queued_sprite_speed = 1;
     
     delta_x = 0;
     delta_y = 0;
@@ -208,7 +172,6 @@ is_party = false
 	moveable_anim = true
     moveable_recruits = true
     moveable_shop = true
-	moveable_array = []
 	
 	_checkmove = function() { // the main function that determines whether the player can move as of right now
 		return moveable 
@@ -221,7 +184,6 @@ is_party = false
 		&& moveable_anim 
         && moveable_recruits
         && moveable_shop
-		&& (array_length(moveable_array) == 0 ? true : false)
 		
 		&& hurt == 0
         && spawn_buffer <= 0
@@ -248,36 +210,20 @@ __initialize = function() {
     		myheight = party_getbattleheight(name)
     }
 }
-
-track_footsteps = false;
 __step = function(index) {
-    if moving {
-        if stepsounds && index % 2 == 1
-            audio_play(asset_get_index(stepsoundprefix + string(index div 2 + 1)));
-        if instance_exists(o_lb_ripple_vision) && index div 2 == 0 {
-            var xx = x + random_range(-4, 4);
-            var yy = y + random_range(-4, 4);
-            
-            var inst = lb_ripple_create(xx, yy, 3, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
-            inst.hspeed = delta_x;
-            inst.vspeed = delta_y;
-            
-            inst = lb_ripple_create(xx, yy, 2, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
-            inst.hspeed = delta_x;
-            inst.vspeed = delta_y;
-        }
-    }
-}
-__new_record = method(self, function(_default = false) {
-    var _s = {};
-    for (var i = 0; i < array_length(record_targets); i ++) {
-        struct_set(_s, record_targets[i].var_name, (_default ? record_targets[i].value_default : record_targets[i].value_get(follow_target)));
-    }
-    return _s;
-});
-__refresh_follow = function(_pos) {
-    for (var i = 0; i < array_length(record_targets); i ++) {
-        record_targets[i].refresh_method(record[_pos]);
+    if stepsounds
+        audio_play(asset_get_index(stepsoundprefix + string(index div 2 + 1)));
+    if instance_exists(o_lb_ripple_vision) && index div 2 == 0 {
+        var xx = x + random_range(-4, 4);
+        var yy = y + random_range(-4, 4);
+        
+        var inst = lb_ripple_create(xx, yy, 3, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
+        inst.hspeed = delta_x;
+        inst.vspeed = delta_y;
+        
+        inst = lb_ripple_create(xx, yy, 2, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
+        inst.hspeed = delta_x;
+        inst.vspeed = delta_y;
     }
 }
 
