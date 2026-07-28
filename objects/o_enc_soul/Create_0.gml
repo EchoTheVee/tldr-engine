@@ -7,7 +7,7 @@ image_index = 0;
 image_speed = 0;
 image_xscale = 0.5;
 image_yscale = 0.5;
-image_blend = c_orange;
+image_blend = c_red;
 
 i_frames = 0;
 spd = 8
@@ -21,8 +21,7 @@ is_transitioning = true;
 transition_mode = 0;
 
 enum SOUL_COLOR {
-    RED,
-	ORANGE
+    RED
 };
 color = SOUL_COLOR.RED;
 

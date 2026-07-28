@@ -87,21 +87,21 @@ array_push(global.key_items, new item_key_cell_phone())
     save_entry("COMPLETE_TIME", 0)
     
     // light world data
-    save_entry("LW_NAME", loc("Flow"))
-    save_entry("LW_LV", 2 + global.chapter)
-    save_entry("LW_HP", 65)
-    save_entry("LW_MAXHP", 65)
-    save_entry("LW_MONEY", 5)
+    save_entry("LW_NAME", loc("party_kris_name"))
+    save_entry("LW_LV", 1)
+    save_entry("LW_HP", 20)
+    save_entry("LW_MAXHP", 20)
+    save_entry("LW_MONEY", 0)
     save_entry("LW_SINCE_CHAPTER", undefined)
     
     save_entry("LW_WEAPON", 
-        new item_w_lw_bat(), 
+        new item_w_lw_pencil(), 
         function(_conv_data){ global.lw_weapon = _conv_data }, 
         function(){ return save_export_constructed(global.lw_weapon) },
         function(_raw_data) { return save_import_constructed(_raw_data) }
     )
     save_entry("LW_ARMOR", 
-        new item_a_lw_guitarpick(), 
+        new item_a_lw_bandage(), 
         function(_conv_data){ global.lw_armor = _conv_data }, 
         function(){ return save_export_constructed(global.lw_armor) },
         function(_raw_data) { return save_import_constructed(_raw_data) }
@@ -159,7 +159,7 @@ array_push(global.key_items, new item_key_cell_phone())
 
 party_init()
 global.party_names = [   // <-- if you wish to change the default team members, change them here
-    "flow"
+    "kris", "susie", "ralsei"
 ]
 party_apply_equipment()
 

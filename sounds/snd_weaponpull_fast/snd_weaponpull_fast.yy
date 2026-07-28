@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.6562585,
+  "duration":0.656259,
   "exportDir":"",
   "name":"snd_weaponpull_fast",
   "parent":{
