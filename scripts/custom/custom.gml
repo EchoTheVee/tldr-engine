@@ -545,6 +545,12 @@ function string_to_bool(_string) {
     else 
         return real(string_digits(_string)) > .5
 }
+/// @desc removes all "\n"s from a string
+/// @arg {string} _string the string you'd like to convert
+/// @returns {bool}
+function string_remove_newlines(_string) {
+    return string_replace_all(_string, "\n", " ");
+}
 
 function increment_towards(a, b, increment) {
     var i = sign(b - a) * increment;

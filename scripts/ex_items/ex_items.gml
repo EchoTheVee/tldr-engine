@@ -27,7 +27,7 @@ function ex_item_spagetticode() : item_consumable() constructor {
     name = "SpagettiCode"
 	desc = [
         "Spaghetti woven by master coders, made\nof macarons and ribbons. +30HP to all.", 
-        "Heals\nteamn\n30HP",
+        "Heals\nteam\n30HP",
         "",
         "Spaghetti woven by master coders\nParty +30HP"
     ]

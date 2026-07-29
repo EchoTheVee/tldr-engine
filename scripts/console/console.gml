@@ -96,22 +96,26 @@ function console_command_enc_end() : console_command() constructor {
                     if enc_enemy_is_fighting(i)
                         instance_destroy(o_enc.turn_objects[i])
                 }
+                o_enc.turn_objects = [];
+                
+                o_console.log_text("Enemies' turn Skipped");
             }
-            else if o_enc.battle_state == "dialogue" {
+            else if o_enc.battle_state == BATTLE_STATE.DIALOGUE {
                 o_enc.battle_state = BATTLE_STATE.TURN
                 with o_enc {
                     for (var i = 0; i < array_length(inst_dialogues); ++i) {
-                        if enc_enemy_is_fighting(i)
-                            instance_destroy(inst_dialogues[i])
+                        if !instance_exists(inst_dialogues[i])
+                            continue;
+                        if !instance_exists(inst_dialogues[i].inst)
+                            continue;
+                        
+                        instance_destroy(inst_dialogues[i].inst);
+                        instance_destroy(inst_dialogues[i]);
                     }
+                    inst_dialogues = [];
                 }
                 
-                call_later(1, time_source_units_frames, function() {
-                    for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-                        if enc_enemy_is_fighting(i)
-                            instance_destroy(o_enc.turn_objects[i])
-                    }
-                })
+                o_console.log_text("Dialogue Skip");
             }
             else {
                 o_enc.battle_state = BATTLE_STATE.WIN
@@ -121,11 +125,13 @@ function console_command_enc_end() : console_command() constructor {
                     if enc_enemy_is_fighting(i)
                         instance_destroy(o_enc.encounter_data.enemies[i].actor_id)
                 }
+                
+                o_console.log_text("Encounter Ended");
             }
-            instance_destroy(o_enc_target)
+            instance_destroy(o_enc_target);
         }
         else 
-            show_debug_message("CONSOLE: o_enc not found, no encounter ended")
+            o_console.log_text("`o_enc` not found, encounter not ended");
     };
 }
 console_command_register(console_command_enc_end);
@@ -176,6 +182,7 @@ function console_command_mute_bgm() : console_command() constructor {
     };
 }
 console_command_register(console_command_mute_bgm);
+
 function console_command_intro() : console_command() constructor {
 	hotkey = ord("N");
 	name = "Open Intro Sequence";
@@ -185,3 +192,61 @@ function console_command_intro() : console_command() constructor {
 	}
 }
 console_command_register(console_command_intro);
+
+
+function console_log(_text, _drawer = method(self, function(_offx = 0, _offy = 0) {
+    draw_set_alpha(alpha * .75);
+    draw_set_halign(fa_right);
+    draw_set_valign(fa_bottom);
+    draw_set_colour(c_black);
+    draw_set_font(font_main);
+    
+    draw_rectangle(x + _offx + offset_x - width*xscale, y + _offy + offset_y - height*yscale - 8, x + _offx + offset_x, y + _offy + offset_y, false);
+    
+    draw_set_colour(color);
+    draw_set_alpha(alpha);
+    draw_text_ext_transformed(x + _offx + offset_x, y + _offy + offset_y, text, 20, width, xscale, yscale, angle);
+    
+    draw_set_alpha(1);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    
+})) constructor {
+    text = _text;
+    draw = _drawer;
+    
+    x = 640 - 20;
+    y = 480 - 10;
+    
+    draw_set_font(font_main);
+    
+    max_width = 300;
+    width = string_width_ext(text, 20, max_width);
+    height = string_height_ext(text, 20, max_width);
+    color = c_white;
+    
+    xscale = 1;
+    yscale = 1;
+    angle = 0;
+    alpha = 0;
+    
+    offset_x = 100;
+    offset_y = 0;
+    animate(100, 0, 15, anime_curve.sine_out, self, "offset_x");
+    animate(alpha, 1, 15, anime_curve.linear, self, "alpha");
+    
+    timer = 0;
+    timer_expire = 120;
+    time_source = call_later(1, time_source_units_frames, method(self, function() {
+        timer ++;
+        
+        if timer == timer_expire {
+            animate(offset_x, -30, 15, anime_curve.sine_in, self, "offset_x");
+            animate(alpha, 0, 15, anime_curve.linear, self, "alpha");
+            
+            call_cancel(time_source);
+            if time_source_exists(time_source)
+                time_source_destroy(time_source);
+        }
+    }), true);
+}

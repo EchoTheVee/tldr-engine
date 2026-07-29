@@ -1,7 +1,20 @@
 event_inherited()
 
 _select = function(_item) {
+    var _i = new _item();
+    var _item_text = item_add(_i);
     
+    audio_play(snd_item);
+    
+    if !keyboard_check(vk_shift) {
+        audio_play(snd_impact);
+        instance_destroy();
+    }
+    
+    var _log = new console_log($"{item_get_name(_i)} was added to your {item_get_store_name(item_get_type(_i))}");
+    _log.color = merge_colour(display_list[category].color, c_white, .5);
+    
+    o_console.log(_log);
 }
 _item_name = function(_item) {
     return script_get_name(_item);

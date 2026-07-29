@@ -17,6 +17,17 @@ keyhold_max = 10;
 
 held_keys = [];
 curcommand = function() {};
+current_console_logs = array_create(4, undefined);
+
+/// @arg {struct.console_log} _log
+log = method(self, function(_log) {
+    array_insert_cycle(current_console_logs, 0, _log);
+})
+/// @arg {string} _text
+log_text = method(self, function(_text) {
+    var _log = new console_log(_text);
+    array_insert_cycle(current_console_logs, 0, _log);
+})
 
 command_find = function(_hotkey) {
     for (var i = 0; i < array_length(registred_commands); i ++) {
