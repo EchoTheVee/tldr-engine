@@ -982,6 +982,8 @@
     {"id":{"name":"shd_transparent","path":"shaders/shd_transparent/shd_transparent.yy",},},
     {"id":{"name":"mus_battle","path":"sounds/mus_battle/mus_battle.yy",},},
     {"id":{"name":"mus_charjoin","path":"sounds/mus_charjoin/mus_charjoin.yy",},},
+    {"id":{"name":"mus_darkforest_overworld","path":"sounds/mus_darkforest_overworld/mus_darkforest_overworld.yy",},},
+    {"id":{"name":"mus_darkforest_start","path":"sounds/mus_darkforest_start/mus_darkforest_start.yy",},},
     {"id":{"name":"mus_darkness","path":"sounds/mus_darkness/mus_darkness.yy",},},
     {"id":{"name":"mus_defeat","path":"sounds/mus_defeat/mus_defeat.yy",},},
     {"id":{"name":"mus_drone","path":"sounds/mus_drone/mus_drone.yy",},},
