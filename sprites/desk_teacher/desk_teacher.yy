@@ -1,11 +1,11 @@
 {
   "$GMSprite":"v2",
-  "%Name":"Sprite587",
-  "bboxMode":0,
+  "%Name":"desk_teacher",
+  "bboxMode":2,
   "bbox_bottom":43,
   "bbox_left":0,
   "bbox_right":93,
-  "bbox_top":0,
+  "bbox_top":23,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
@@ -21,9 +21,9 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"45a8da1b-35ab-4f42-93ef-d7a719858aea","blendMode":0,"displayName":"default","isLocked":false,"name":"45a8da1b-35ab-4f42-93ef-d7a719858aea","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"Sprite587",
+  "name":"desk_teacher",
   "nineSlice":null,
-  "origin":0,
+  "origin":7,
   "parent":{
     "name":"classroom1",
     "path":"folders/zzz Examples/Sprites/ow/classroom1.yy",
@@ -33,7 +33,7 @@
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"Sprite587",
+    "%Name":"desk_teacher",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -57,7 +57,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"Sprite587",
+    "name":"desk_teacher",
     "playback":1,
     "playbackSpeed":30.0,
     "playbackSpeedType":0,
@@ -69,14 +69,14 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4765054a-cde7-4dcb-9647-4c8ce8c4d1b0","path":"sprites/Sprite587/Sprite587.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4765054a-cde7-4dcb-9647-4c8ce8c4d1b0","path":"sprites/desk_teacher/desk_teacher.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"37774c8b-26a4-41a0-99a1-f8aaf0fa6321","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":0,
-    "yorigin":0,
+    "xorigin":47,
+    "yorigin":44,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

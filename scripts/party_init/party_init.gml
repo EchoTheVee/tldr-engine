@@ -407,7 +407,7 @@ function party_m_flow(_initialized_name) constructor {
 	iconcolor =	c_orange
 	
 	// stats
-	lv =	(save_get("chapter") + 1)
+	lv =	(save_get("chapter")) + 1
 	desc =	"Batccentric weilding blunt ravager."
 	power_stats = [
 		["--", 0, spr_ui_menu_icon_exclamation],
