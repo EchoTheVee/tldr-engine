@@ -93,7 +93,7 @@ chapters = [
 				room_goto(room_save_select)
 			})
 		},
-		icon: spr_ui_chs_ch4,
+		icon: spr_ui_chs_ch5,
 	},
 	-1,
 	-1,
