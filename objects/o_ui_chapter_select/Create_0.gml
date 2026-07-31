@@ -67,7 +67,7 @@ chapters = [
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 4
-                save_entry_set_default("ROOM", room_lw_flowerking_attic)
+                save_entry_set_default("ROOM", room_df_room_1)
                 save_entry_set_default("CHAPTER", 4)
                 
 				save_reload()

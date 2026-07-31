@@ -7,6 +7,7 @@ function typer_chars_init()  {
     new typer_char_ralsei_hat().__initialize()
     new typer_char_noelle().__initialize()
 	new typer_char_flow().__initialize()
+	new typer_char_flowcicle().__initialize()
 }
 /// @desc creates a struct with a typer character
 function typer_char() constructor {
@@ -80,4 +81,13 @@ function typer_char_flow() : typer_char() constructor {
     face_sprite = spr_face_flow
     voice = snd_flow_txt
 	voice_skip = 2
+}
+
+function typer_char_flowcicle() : typer_char() constructor {
+    name = "flowcicle"
+    
+    face_sprite = spr_face_flowcicle
+    //voice = snd_flow_txt
+	voice_pitch_calc = 3
+	//voice_skip = 2
 }

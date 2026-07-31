@@ -7,7 +7,8 @@ execute_code = function()
 	if times_interacted < 1
 	{
 	cutscene_dialogue([
-            "{char(flow, 0)}* Shit, no way I'm getting back up that way...",
+            "* It's the gap that's stopping you from leaving.",
+			"* Looks like you'll have to find another way out"
         ])
 	}
 	else
@@ -17,7 +18,7 @@ execute_code = function()
         ])	
 	}
 	times_interacted++
-	//cutscene_party_interpolate()
+	cutscene_party_interpolate()
     cutscene_player_canmove(true)
 	cutscene_play()
 }

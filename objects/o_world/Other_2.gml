@@ -87,11 +87,11 @@ array_push(global.key_items, new item_key_cell_phone())
     save_entry("COMPLETE_TIME", 0)
     
     // light world data
-    save_entry("LW_NAME", loc("party_kris_name"))
-    save_entry("LW_LV", 1)
-    save_entry("LW_HP", 20)
-    save_entry("LW_MAXHP", 20)
-    save_entry("LW_MONEY", 0)
+    save_entry("LW_NAME", loc("Flow"))
+    save_entry("LW_LV", (global.chapter + 1))
+    save_entry("LW_HP", 65)
+    save_entry("LW_MAXHP", 65)
+    save_entry("LW_MONEY", 5)
     save_entry("LW_SINCE_CHAPTER", undefined)
     
     save_entry("LW_WEAPON", 
