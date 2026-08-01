@@ -69,6 +69,7 @@ chapters = [
 				global.chapter = 4
                 save_entry_set_default("ROOM", room_df_room_1)
                 save_entry_set_default("CHAPTER", 4)
+				save_set("chapter", 4)
                 
 				save_reload()
 				room_goto(room_save_select)
