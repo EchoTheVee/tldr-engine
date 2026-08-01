@@ -27,7 +27,7 @@
 	
 	for (var i = 0; i < array_length(options); ++i) {
 		if selection == i && state == 0 
-			draw_sprite_ext(spr_ui_soul, 0, 56, 196 + 36*i, 2, 2, 0, c_red, 1)
+			draw_sprite_ext(spr_ui_soul, 0, 56, 196 + 36*i, 2, 2, 0, c_white, 1)
 		if !options[i].selectable 
             draw_set_color(c_gray)
         
@@ -43,21 +43,21 @@ if state == 1 || state == 2 { // items
 	
 	for (var i = 0; i < array_length(iarr); ++i) {
 		if i_selection == i && state == 1 
-			draw_sprite_ext(spr_ui_soul, 0, 232-24, 88 + i*32, 2, 2, 0, c_red, 1)
+			draw_sprite_ext(spr_ui_soul, 0, 232-24, 88 + i*32, 2, 2, 0, c_white, 1)
         
 		draw_text_transformed(232, 80 + i*32, item_get_name(iarr[i]), 2, 2, 0)
 	}
 	
 	if ip_selection == 0 && state == 2
-		draw_sprite_ext(spr_ui_soul, 0, 208, 368, 2, 2, 0, c_red, 1)
+		draw_sprite_ext(spr_ui_soul, 0, 208, 368, 2, 2, 0, c_white, 1)
 	draw_text_transformed(232, 360, loc("menu_lw_item_use"), 2, 2, 0)
     
 	if ip_selection == 1 && state == 2
-		draw_sprite_ext(spr_ui_soul, 0, 328-24, 368, 2, 2, 0, c_red, 1)
+		draw_sprite_ext(spr_ui_soul, 0, 328-24, 368, 2, 2, 0, c_white, 1)
 	draw_text_transformed(328, 360, loc("menu_lw_item_info"), 2, 2, 0)
     
 	if ip_selection == 2 && state == 2
-		draw_sprite_ext(spr_ui_soul, 0, 442-24, 368, 2, 2, 0, c_red, 1)
+		draw_sprite_ext(spr_ui_soul, 0, 442-24, 368, 2, 2, 0, c_white, 1)
 	draw_text_transformed(442, 360, loc("menu_lw_item_drop"), 2, 2, 0)
 }
 if state == 3 { // stats
@@ -69,10 +69,10 @@ if state == 3 { // stats
 		hp: save_get("lw_hp"),
 		hp_max: save_get("lw_maxhp"),
 		
-		attack: 1,
-		attack_base: 9,
+		attack: 3,
+		attack_base: 12,
 		defense: 0,
-		defense_base: 10,
+		defense_base: 5,
 		
 		experience: 0,
 		next_exp: 10,
@@ -133,13 +133,13 @@ if state == 4 { // cell
     ui_dialoguebox_create(188, 52, 346, 270)
     
 	if array_equals(phone_numbers, [])
-		draw_sprite_ext(spr_ui_soul, 0, 232-24, 88, 2, 2, 0, c_red, 1)
+		draw_sprite_ext(spr_ui_soul, 0, 232-24, 88, 2, 2, 0, c_white, 1)
 	else {
 	    for (var i = 0; i < array_length(phone_numbers); i ++) {
 	        var __number = phone_numbers[i]
         
 	        if c_selection == i
-	            draw_sprite_ext(spr_ui_soul, 0, 232-24, 88+i*32, 2, 2, 0, c_red, 1)
+	            draw_sprite_ext(spr_ui_soul, 0, 232-24, 88+i*32, 2, 2, 0, c_white, 1)
 	        draw_text_transformed(232, 80 + i*32, __number.name, 2, 2, 0)
 	    }
 	}
