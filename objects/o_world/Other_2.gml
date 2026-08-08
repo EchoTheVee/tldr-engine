@@ -52,7 +52,7 @@ if instance_exists(o_dev_savewipe_prompt)
 instance_create(o_ui_quit)
 
 // -------------------------------- set up saves -------------------------------------
-global.chapter = 2
+global.chapter = 1
 global.time = 0
 
 // load the default items
