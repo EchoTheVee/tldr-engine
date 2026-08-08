@@ -19,6 +19,7 @@
   "height":20,
   "HTile":false,
   "layers":[
+    {"$GMImageLayer":"","%Name":"b49dde7c-1958-4d02-a920-fe57e2df2ac3","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"b49dde7c-1958-4d02-a920-fe57e2df2ac3","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
     {"$GMImageLayer":"","%Name":"56e62fef-e628-42b1-9521-aee033bd0001","blendMode":0,"displayName":"default","isLocked":false,"name":"56e62fef-e628-42b1-9521-aee033bd0001","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_interactable1",
