@@ -22,24 +22,13 @@ if global.console_enabled && !instance_exists(o_dev_savewipe_prompt)
     instance_create(o_console)
 
 { // get window ready
-    window_scale = 1;
-    
-    // the exact way deltarune finds window scale
 	var display_height = display_get_height();
     var display_width = display_get_width();
     
-    // find the window and bordered window scale 
-    for (var _ww = 2; _ww < 6; _ww += 1) {
-        if (display_width > (GAME_W_GUI * _ww) && display_height > (GAME_H_GUI * _ww))
-            window_scale = _ww;
-        if (display_width > (960 * _ww) && display_height > (540 * _ww))
-            window_border_scale = _ww;
-    };
-    
-	var divide = 540;
-	if display_get_width() < display_get_height()
-		divide = 960;
-    fullscreen_scale = min(display_get_width(), display_get_height()) / divide;
+    // logic by Ally
+    window_scale = clamp(ceil(min(display_width / GAME_W_GUI, display_height / GAME_H_GUI)) - 1, 1, 11);
+    window_border_scale = clamp(ceil(min(display_width / 960, display_height / 540)) - 1, 1, 11);
+    fullscreen_scale = min(display_get_width(), display_get_height()) / (display_get_width() < display_get_height() ? 960 : 540);
     
     borders_toggle(global.border_mode != BORDER_MODE.OFF);
     borders_window_resize();

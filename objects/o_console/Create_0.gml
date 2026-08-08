@@ -24,8 +24,10 @@ log = method(self, function(_log) {
     array_insert_cycle(current_console_logs, 0, _log);
 })
 /// @arg {string} _text
-log_text = method(self, function(_text) {
+/// @arg {Constant.Color} _color the color here will be merged with white (half-and-half). to override this, set the color attribute manually
+log_text = method(self, function(_text, _color = c_white) {
     var _log = new console_log(_text);
+    _log.color = merge_colour(_color, c_white, .5);
     array_insert_cycle(current_console_logs, 0, _log);
 })
 

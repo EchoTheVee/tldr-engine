@@ -10,7 +10,11 @@ item_list = [
 
 _select = function(_item) {
     instance_destroy()
-    new _item()._start()
+    
+    var _target_enc = new _item();
+    _target_enc._start()
+    
+    o_console.log_text($"{instanceof(_target_enc)} started", c_lime);
 }
 _item_name = function(_item) {
     return script_get_name(_item);

@@ -130,8 +130,9 @@ function console_command_enc_end() : console_command() constructor {
             }
             instance_destroy(o_enc_target);
         }
-        else 
-            o_console.log_text("`o_enc` not found, encounter not ended");
+        else {
+            o_console.log_text("`o_enc` not found, encounter not ended", c_red);
+        }
     };
 }
 console_command_register(console_command_enc_end);
@@ -142,6 +143,7 @@ function console_command_switch_lang() : console_command() constructor {
     desc = "Switches the language of the session. will set you back to your last save.";
     execute = function() {
         loc_switch_lang()
+        o_console.log_text($"Language switched to {global.loc_lang}", c_orange);
     };
 }
 console_command_register(console_command_switch_lang);
@@ -167,7 +169,7 @@ function console_command_max_tp() : console_command() constructor {
             audio_play(snd_wing,, 1, 1.2);
         }
         else 
-            show_debug_message("CONSOLE: o_enc not found, TP not maxed out")
+            o_console.log_text("`o_enc` not found, TP not set", c_red);
     };
 }
 console_command_register(console_command_max_tp);
@@ -179,6 +181,8 @@ function console_command_mute_bgm() : console_command() constructor {
     execute = function() {
         o_world.volume_bgm = (o_world.volume_bgm > 0 ? 0 : 1);
         audio_emitter_gain(o_world.emitter_bgm, o_world.volume_bgm); 
+        
+        o_console.log_text($"BGM's volume set to {o_world.volume_bgm}", c_orange);
     };
 }
 console_command_register(console_command_mute_bgm);

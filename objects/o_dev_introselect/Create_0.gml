@@ -5,6 +5,8 @@ _select = function(_item) {
     music_stop_all()
     audio_play(snd_ui_select)
     
+    o_console.log_text($"{_item_name(_item, 0, 0)} started", c_orange);
+    
 	room_instance_clear(room_intro);
 	room_goto(room_intro);
 	
