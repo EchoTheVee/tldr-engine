@@ -45,7 +45,8 @@ if currently_naming {
     draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
     gpu_set_blendenable(true)
     
-    exit
+    draw_set_color(c_white);
+    exit;
 }
 
 var t = msg
