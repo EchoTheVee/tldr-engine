@@ -1,0 +1,1 @@
+parallax_dist_x = .1

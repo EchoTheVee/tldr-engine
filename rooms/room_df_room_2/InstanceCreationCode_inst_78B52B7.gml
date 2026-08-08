@@ -3,7 +3,7 @@ trigger_code = function() {
 	cutscene_create()
 	if count == 0 {
 		cutscene_dialogue([
-			"{char(flow, 10)}* What the hell is that",
+			"{char(flow, 10)}* Another one of these?",
 		])
 	}
     else{

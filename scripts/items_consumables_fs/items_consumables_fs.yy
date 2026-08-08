@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"items_consumables_fs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"items_consumables_fs",
+  "parent":{
+    "name":"inventoryaddons",
+    "path":"folders/Scripts/inventoryaddons.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
