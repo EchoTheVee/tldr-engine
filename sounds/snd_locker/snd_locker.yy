@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.4687529,
+  "duration":1.468753,
   "exportDir":"",
   "name":"snd_locker",
   "parent":{

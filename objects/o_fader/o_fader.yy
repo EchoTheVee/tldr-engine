@@ -10,8 +10,8 @@
   "name":"o_fader",
   "overriddenProperties":[],
   "parent":{
-    "name":"misc",
-    "path":"folders/@Engine/objects/misc.yy",
+    "name":"objects",
+    "path":"folders/@Engine/objects.yy",
   },
   "parentObjectId":null,
   "persistent":true,

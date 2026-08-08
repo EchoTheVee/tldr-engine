@@ -1,3 +1,105 @@
+chapters = [
+	{
+		name: "New In Town", // will be localized when drawn
+		exec: function(caller) {
+			music_stop(0)
+			audio_play(snd_ui_scary)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 1
+                
+                save_entry_set_default("ROOM", room_lw_traincar1)
+                save_entry_set_default("CHAPTER", 1)
+                
+                save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_ui_chs_ch1,
+	},
+	{
+		name: "Greasejoint",
+		exec: function(caller){
+			music_stop(0)
+			audio_play(snd_chs_ch2)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 2
+                save_entry_set_default("ROOM", room_lw_flowerking_attic)
+                save_entry_set_default("CHAPTER", 2)
+                
+				save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_ui_chs_ch2,
+	},
+	{
+		name: "Egg Basket",
+		exec: function(caller){
+			music_stop(0)
+			audio_play(snd_chs_ch3)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 3
+                save_entry_set_default("ROOM", room_lw_flowerking_attic)
+                save_entry_set_default("CHAPTER", 3)
+                
+				save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_ui_chs_ch3,
+	},
+	{
+		name: "Monsters Live",
+		exec: function(caller){
+			music_stop(0)
+			audio_play(snd_chs_ch4)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 4
+                save_entry_set_default("ROOM", room_df_room_1)
+                save_entry_set_default("CHAPTER", 4)
+				save_set("chapter", 4)
+                
+				save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_ui_chs_ch4,
+	},
+	{
+		name: "Early Morning",
+		exec: function(caller){
+			music_stop(0)
+			audio_play(snd_chs_ch4)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 5
+                save_entry_set_default("ROOM", room_lw_flowerking_attic)
+                save_entry_set_default("CHAPTER", 5)
+                
+				save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_ui_chs_ch5,
+	},
+	-1,
+	-1,
+]
+
 yadd = -80
 alpha = 0
 selection = global.chapter
@@ -19,24 +121,29 @@ languages = true
 lock = false
 surf = -1
 state = -1
-musplayed = 0
+musplayed=  0
 
 complete_ch = 0
 incomplete_ch = 0
 tselec = 0
-
-possible_chapters = 0;
-for (var i = 0; i < array_length(global.registered_chapters); i ++) {
-    if !is_struct(global.registered_chapters[i])
+possible_chapters = 0
+for (var i = 0; i < array_length(chapters); i ++) {
+    if !is_struct(chapters[i])
         break
     possible_chapters ++
+}
+for (var i = 0; i < array_length(chapters); i ++) {
+    for (var j = 0; j < array_length(SAVE_SLOTS); j ++) {
+        
+    }
 }
 
 yes = loc("chapter_select_yes")
 no = loc("chapter_select_no")
 
 txt = ""
-chapter_parsed_data = array_create(array_length(global.registered_chapters), {});
+
+save_chs =  []
 
 event_user(0)
 

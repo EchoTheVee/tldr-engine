@@ -1,4 +1,4 @@
-function ex_item_butjuice() : item_consumable() constructor {
+function ex_item_butjuice() : item() constructor {
     name = "ButJuice"
 	desc = [
         "It's short for ButlerJuice.\nIt changes color with temperature.", 
@@ -21,13 +21,12 @@ function ex_item_butjuice() : item_consumable() constructor {
     
     item_localize("ex_item_butjuice")
 }
-item_register(ex_item_butjuice);
 
-function ex_item_spagetticode() : item_consumable() constructor {
+function ex_item_spagetticode() : item() constructor {
     name = "SpagettiCode"
 	desc = [
         "Spaghetti woven by master coders, made\nof macarons and ribbons. +30HP to all.", 
-        "Heals\nteam\n30HP",
+        "Heals\nteamn\n30HP",
         "",
         "Spaghetti woven by master coders\nParty +30HP"
     ]
@@ -46,7 +45,6 @@ function ex_item_spagetticode() : item_consumable() constructor {
     
     item_localize("ex_item_spagetticode")
 }
-item_register(ex_item_spagetticode);
 
 function ex_item_a_bshotbowtie() : item_armor() constructor {
     name = "B.ShotBowtie"
@@ -71,9 +69,8 @@ function ex_item_a_bshotbowtie() : item_armor() constructor {
     
     item_localize("ex_item_a_bshotbowtie")
 }
-item_register(ex_item_a_bshotbowtie);
 
-function ex_item_tensiongem() : item_consumable() constructor {
+function ex_item_tesniongem() : item() constructor {
     name = "TensionGem"
     desc = [
         "Raises TP by 50% in battle.",
@@ -100,4 +97,3 @@ function ex_item_tensiongem() : item_consumable() constructor {
     
     item_localize("ex_item_tensiongem")
 }
-item_register(ex_item_tensiongem);

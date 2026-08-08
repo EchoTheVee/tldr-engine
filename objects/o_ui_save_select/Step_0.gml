@@ -438,7 +438,7 @@ if state == 4 {
 			subselection --
 		}
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-			if is_struct(files_prev[subselection]) {
+			if files_prev[subselection] != -1 && files_prev[subselection].COMPLETED {
 				audio_play(snd_ui_select)
 				buffer = 1
 				state = 41
@@ -501,8 +501,7 @@ if state == 41 {
         
         music_stop_all()
         
-        save_load(subselection, global.chapter - 1,,, true) // load the previous chapter
-        global.chapter ++;
+        save_load(subselection, global.chapter - 1) // load the previous chapter
         
         room_goto(save_get("room"))
         fader_fade(1, 0, 15)

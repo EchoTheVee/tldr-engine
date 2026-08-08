@@ -1,6 +1,4 @@
 members = []
-name = "party wait"
-
 
 execute_code = function() {
 	cutscene_create()
@@ -58,9 +56,10 @@ execute_code = function() {
                     if !array_contains(get_leader().interactable_instances)
                         array_push(get_leader().interactable_instances, o)
                     
-                    cutscene_set_variable(o, "interaction_code", method({text: string(struct_get(dialogue, global.party_names[i]), party_getname(global.party_names[i]))}, function() {
-                        dialogue_start(text);
-                    }));
+                    cutscene_set_variable(o, "interaction_code", function(text) {
+                        dialogue_start(text)
+                    })
+                    cutscene_set_variable(o, "interaction_args", [string(struct_get(dialogue, global.party_names[i]), party_getname(global.party_names[0]))])
                 }
                 
                 array_push(members, global.party_names[i])

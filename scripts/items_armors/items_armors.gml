@@ -24,8 +24,6 @@ function item_a_ambercard() : item_armor() constructor {
     
     item_localize("item_a_amber_card")
 }
-item_register(item_a_ambercard);
-
 function item_a_silvercard() : item_armor() constructor {
 	name = ["Silver Card"]
 	desc = ["A square charm that increases\ndropped money by 5%", "--"]
@@ -53,7 +51,6 @@ function item_a_silvercard() : item_armor() constructor {
     
     item_localize("item_a_silver_card")
 }
-item_register(item_a_silvercard);
 
 function item_a_pink_ribbon() : item_armor() constructor {
 	name = ["Pink Ribbon"]
@@ -79,8 +76,6 @@ function item_a_pink_ribbon() : item_armor() constructor {
     
     item_localize("item_a_pink_ribbon")
 }
-item_register(item_a_pink_ribbon);
-
 function item_a_white_ribbon() : item_armor() constructor {
 	name = ["White Ribbon"]
 	desc = ["A crinkly hair ribbon that slightly\nincreases your defense.", "--"]
@@ -105,8 +100,6 @@ function item_a_white_ribbon() : item_armor() constructor {
     
     item_localize("item_a_white_ribbon")
 }
-item_register(item_a_white_ribbon);
-
 function item_a_twin_ribbon() : item_armor() constructor {
 	name = ["Twin Ribbon"]
 	desc = ["Two ribbons. You'll have to put\nyour hair into pigtails.", "--"]
@@ -131,7 +124,6 @@ function item_a_twin_ribbon() : item_armor() constructor {
     
     item_localize("item_a_twin_ribbon")
 }
-item_register(item_a_twin_ribbon);
 
 function item_a_royal_pin() : item_armor() constructor {
     name = ["Royal Pin"]
@@ -157,8 +149,6 @@ function item_a_royal_pin() : item_armor() constructor {
     
     item_localize("item_a_royal_pin")
 }
-item_register(item_a_royal_pin);
-
 function item_a_silver_watch() : item_armor() constructor {
     name = ["Silver Watch"]
     desc = ["Grazing bullets affects the turn length by 10% more", "--"]
@@ -182,8 +172,6 @@ function item_a_silver_watch() : item_armor() constructor {
     
     item_localize("item_a_silver_watch")
 }
-item_register(item_a_silver_watch);
-
 function item_a_lw_wristwatch() : item_armor() constructor {
     name = ["Wristwatch"]
     desc = ["* Maybe an expensive antique. Stuck before half past noon.", "--"]
@@ -194,7 +182,6 @@ function item_a_lw_wristwatch() : item_armor() constructor {
     
     item_localize("item_a_wristwatch")
 }
-item_register(item_a_lw_wristwatch);
 
 function item_a_dealmaker() : item_armor() constructor {
     name = ["Dealmaker"]
@@ -225,8 +212,6 @@ function item_a_dealmaker() : item_armor() constructor {
     
     item_localize("item_a_dealmaker")
 }
-item_register(item_a_dealmaker);
-
 function item_a_shadowmantle() : item_armor() constructor {
     name = ["ShadowMantle"]
     desc = ["Shadows slip off like water.\nGreatly protects against Dark and Star attacks.", "--"]
@@ -254,7 +239,7 @@ function item_a_shadowmantle() : item_armor() constructor {
     
     item_localize("item_a_shadowmantle")
 }
-item_register(item_a_shadowmantle);
+
 
 function item_a_scarletbadge(data = {
         save_colors: {},
@@ -307,7 +292,6 @@ function item_a_scarletbadge(data = {
     
     sell_price = 200;
 }
-item_register(item_a_scarletbadge);
 
 function item_a_lw_bandage() : item_armor() constructor {
     name = ["Bandage"]
@@ -323,4 +307,3 @@ function item_a_lw_bandage() : item_armor() constructor {
     
     item_localize("item_c_lw_bandage")
 }
-item_register(item_a_lw_bandage);
