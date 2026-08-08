@@ -6,8 +6,8 @@ if state == 0 { // still show the freezeframe
     if window_get_fullscreen() && !global.border
         scale = min(display_get_width() / GAME_W_GUI, display_get_height() / GAME_H_GUI);
     
-    var xoff = sine(10, o_window.sinexoff) + random_range(-total_shake, total_shake) * o_window.scale;
-    var yoff = sine(10, o_window.sineyoff) + random_range(-total_shake, total_shake) * o_window.scale;
+    var xoff = sine(10, o_window.sinexoff) + random_range(-total_shake, total_shake) * scale;
+    var yoff = sine(10, o_window.sineyoff) + random_range(-total_shake, total_shake) * scale;
     
 	draw_sprite_ext(freezeframe, 0, xoff, yoff, 1, 1, 0, c_white, 1);
     
