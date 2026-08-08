@@ -46,6 +46,10 @@ else if state == NAMING_STATE.TRANS_CONFIRM {
         state = NAMING_STATE.CONFIRM
         __create_text(loc("naming_menu_txt_confirm"))
     }
+	if name == "GASTER"
+	{
+		game_end()
+	}
 }
 else if state == NAMING_STATE.CONFIRM {
     name_angle = random(4)

@@ -5,7 +5,7 @@ function item_key() : item() constructor {
 }
 
 function item_key_cell_phone() : item_key() constructor {
-	name = ["Cell Phone"]
+	name = ["Flip Phone"]
 	desc = ["It can be used to make calls.", "--"]
 	
 	use = function() {
