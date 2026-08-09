@@ -453,7 +453,7 @@ function party_m_flow(_initialized_name) constructor {
 		actend: [spr_bflow_actend, "idle", 1],
 		attack: [spr_bflow_attack, true],
 		attackready: spr_bflow_attackready,
-		defeat: spr_bsusie_defeat,
+		defeat: spr_bflow_defeat,
 		defend: [spr_bsusie_defend, true],
 		hurt: spr_bsusie_hurt,
 		idle: spr_bflow_idle,

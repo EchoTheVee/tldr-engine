@@ -1,7 +1,7 @@
 function item_w_thornring() : item_weapon() constructor {
 	name = ["ThornRing?"]
 	desc = ["Wearer takes damage from pain Reduces the TP cost of ice spells"]
-	
+	type = ITEM_TYPE.WEAPON
 	stats = {
         attack: 14,
         magic: 12,
@@ -28,7 +28,7 @@ function item_w_batbat() : item_weapon() constructor {
 	name = ["BatBat"]
 	desc = ["An upgraded version of your bat.", "--"]
 	lw_counterpart = item_w_lw_bat
-    
+    type = ITEM_TYPE.WEAPON
 	stats = {
 		attack: 2, 
 	}
@@ -64,7 +64,7 @@ function item_w_vinebat() : item_weapon() constructor {
 	name = ["VineBat"]
 	desc = ["These vines are so thick, you could swear youre just holding a tree root.", "--"]
 	lw_counterpart = item_w_lw_bat
-    
+    type = ITEM_TYPE.WEAPON
 	stats = {
 		attack: 6, 
 	}
@@ -90,7 +90,7 @@ function item_w_biibat() : item_weapon() constructor {
 	name = ["BiiBat"]
 	desc = ["It unsurfaces a wave of e-motions long since past.", "--"]
 	lw_counterpart = item_w_lw_bat
-    
+    type = ITEM_TYPE.WEAPON
 	stats = {
 		attack: 3, 
 	}
@@ -116,7 +116,7 @@ function item_w_wireframebat() : item_weapon() constructor {
 	name = ["WireframeBat"]
 	desc = ["The base essentials of the bats polygonal structure.", "--"]
 	lw_counterpart = item_w_lw_bat
-    
+    type = ITEM_TYPE.WEAPON
 	stats = {
 		attack: 4, 
 	}
@@ -142,7 +142,7 @@ function item_w_battatbat() : item_weapon() constructor {
 	name = ["BattatBat"]
 	desc = ["You dont want this.", "--"]
 	lw_counterpart = item_w_lw_bat
-    
+    type = ITEM_TYPE.WEAPON
 	stats = {
 		attack: 0, 
 	}
