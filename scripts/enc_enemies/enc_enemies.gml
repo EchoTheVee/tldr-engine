@@ -425,3 +425,4 @@ function enemy_killercar() : enemy() constructor{
     
     recruit = new enemy_recruit_killercar()
 }
+

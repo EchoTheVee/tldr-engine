@@ -8,6 +8,9 @@ function typer_chars_init()  {
     new typer_char_noelle().__initialize()
 	new typer_char_flow().__initialize()
 	new typer_char_flowcicle().__initialize()
+	new typer_char_chanse().__initialize()
+	new typer_char_autumn().__initialize()
+	new typer_char_empty().__initialize()
 }
 /// @desc creates a struct with a typer character
 function typer_char() constructor {
@@ -90,4 +93,24 @@ function typer_char_flowcicle() : typer_char() constructor {
     //voice = snd_flow_txt
 	voice_pitch_calc = 3
 	//voice_skip = 2
+}
+
+function typer_char_chanse() : typer_char() constructor {
+    name = "chanse"
+    
+    face_sprite = spr_face_chanse_placeholder
+    voice = snd_chanse_txt
+	voice_skip = 3
+}
+function typer_char_autumn() : typer_char() constructor {
+    name = "autumn"
+    
+    face_sprite = spr_face_autumn
+    voice = snd_autumn_txt
+	voice_skip = 1
+}
+function typer_char_empty() : typer_char() constructor {
+	name = "empty"
+	
+	voice = snd_empty
 }

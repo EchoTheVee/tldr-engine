@@ -31,6 +31,12 @@ function string_to_color(color_string){
         case "c_orange":
         case "orange":
             return c_orange
+		case "c_pink":
+		case "pink":
+			return c_pink
+		case "c_dkpink":
+		case "dkpink":
+			return c_dkpink
 		default:
 			return c_white
 	}

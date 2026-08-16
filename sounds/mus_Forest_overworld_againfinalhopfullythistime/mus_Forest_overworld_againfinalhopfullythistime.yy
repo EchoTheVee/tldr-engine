@@ -22,5 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"mus_Forest_overworld_againfinalhopfullythistime.ogg",
-  "volume":0.1,
+  "volume":0.29,
 }

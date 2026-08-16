@@ -49,3 +49,30 @@ function ex_enc_set_spawn() : enc_set() constructor {
         tp_constrict: true,
     }
 }
+
+function ex_enc_set_bushful() : enc_set() constructor {
+	debug_name	=	"fullbush"
+    
+	enemies = [
+		new enemy_bushful(),
+		new enemy_bushful(),
+	]
+    
+	flavor = function() {
+        if o_enc.turn_count == 0 
+            return "* An infestation of Bushful emerges from the pile."
+        return choose(
+            "* Bushful is enjoying the leaves on the ground.",
+            "* Bushful is waiting for you to leaf.",
+            "* Bushful roots for you.",
+            "* Bushful is having good chives."
+        )
+    }
+    
+	
+	enemies_pos = [
+		[-4, -6, true],
+		[-14, 6, true]
+	]
+	
+}

@@ -7,6 +7,8 @@ function party_init() {
     party_m_initialize("ralsei", party_m_ralsei)
     party_m_initialize("noelle", party_m_noelle)
 	party_m_initialize("flow", party_m_flow)
+	party_m_initialize("chanse", party_m_chanse)
+	party_m_initialize("autumn", party_m_autumn)
     
 	global.party_names = []
 }
@@ -470,6 +472,182 @@ function party_m_flow(_initialized_name) constructor {
 		
 	// system
 	actor_id = o_actor_flow
+    
+    // methods
+    __get_cardinal = party_m_get_cardinal
+    __get_sprite = party_m_get_sprite
+}
+
+function party_m_chanse(_initialized_name) constructor {
+    __constructable = false; // make sure the save system doesn't take them as constructables
+    
+	name = "Chanse"
+    initialized_name = _initialized_name
+    action_letter = "C"
+    obj = {
+		obj: o_actor_chanse,
+		var_struct: {
+			name: "chanse"
+		},
+	}
+	
+	// colors
+	color =		c_red
+	darkcolor =	c_maroon
+	iconcolor =	c_red
+	
+	// stats
+	lv =	4
+	desc =	"???"
+	power_stats = [
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["party_stat_guts", 0, spr_ui_menu_icon_fire],
+	]
+	
+	max_hp =	party_m_calculate_hp(80, lv)
+	hp =		max_hp
+	attack =	14
+	defense =	12
+	magic =		3
+	element_resistance = {
+	}
+	
+	// inventory
+	weapon = new item_w_batbat()
+	armor1 = undefined
+	armor2 = undefined
+	spells = [
+		new item_s_testdmg(),
+	]
+	
+	// sprites config
+    s_name = ""
+    s_prefix = ""
+    s_scheme = "spr_{0}_{1}_{2}"
+    s_scheme_addelements = []
+    s_fallback = spr_default
+    
+	s_icon =		spr_ui_default_icon
+	s_icon_ow =		spr_ui_default_head
+	s_icon_weapon = spr_ui_menu_weapon_axe
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+    
+    // states
+	s_state =		""
+	s_substate =	""
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
+		act: [spr_bsusie_act, true],
+		actready: spr_bsusie_actready,
+		actend: [spr_bsusie_actend, "idle", 1],
+		attack: [spr_bsusie_attack, true],
+		attackready: spr_bsusie_attackready,
+		defeat: spr_bsusie_defeat,
+		defend: [spr_bsusie_defend, true],
+		hurt: spr_bsusie_hurt,
+		idle: spr_bsusie_idle,
+		intro: spr_susie_right,
+		introb: spr_susie_right,
+		itemuse: [spr_bsusie_item, "idle", 1],
+		itemready: spr_bsusie_itemready,
+		spell: [spr_bsusie_spell, "idle", 1],
+		spellready: spr_bsusie_spellready,
+		victory: [spr_bsusie_victory, true],
+		spare: [spr_bsusie_act, "idle", 1],
+		attack_eff: spr_bsusie_attackeff,
+	}
+		
+	// system
+	actor_id = noone
+    
+    // methods
+    __get_cardinal = party_m_get_cardinal
+    __get_sprite = party_m_get_sprite
+}
+
+function party_m_autumn(_initialized_name) constructor {
+    __constructable = false; // make sure the save system doesn't take them as constructables
+    
+	name = "Autumn"
+    initialized_name = _initialized_name
+    action_letter = "A"
+    obj = {
+		obj: o_actor_autumn,
+		var_struct: {
+			name: "autumn"
+		},
+	}
+	
+	// colors
+	color =		c_pink
+	darkcolor =	c_purple
+	iconcolor =	c_pink
+	
+	// stats
+	lv =	1
+	desc =	"???"
+	power_stats = [
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["party_stat_guts", 0, spr_ui_menu_icon_fire],
+	]
+	
+	max_hp =	party_m_calculate_hp(75, lv)
+	hp =		max_hp
+	attack =	8
+	defense =	8
+	magic =		5
+	element_resistance = {
+	}
+	
+	// inventory
+	weapon = new item_w_batbat()
+	armor1 = undefined
+	armor2 = undefined
+	spells = [
+		new item_s_testdmg(),
+	]
+	
+	// sprites config
+    s_name = "autumn"
+    s_prefix = ""
+    s_scheme = "spr_{0}_{1}_{2}"
+    s_scheme_addelements = []
+    s_fallback = spr_default
+    
+	s_icon =		spr_ui_autumn_icon
+	s_icon_ow =		spr_ui_autumn_head
+	s_icon_weapon = spr_ui_menu_weapon_axe
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+    
+    // states
+	s_state =		""
+	s_substate =	""
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
+		act: [spr_bsusie_act, true],
+		actready: spr_bsusie_actready,
+		actend: [spr_bsusie_actend, "idle", 1],
+		attack: [spr_bsusie_attack, true],
+		attackready: spr_bsusie_attackready,
+		defeat: spr_bsusie_defeat,
+		defend: [spr_bsusie_defend, true],
+		hurt: spr_bsusie_hurt,
+		idle: spr_bsusie_idle,
+		intro: spr_susie_right,
+		introb: spr_susie_right,
+		itemuse: [spr_bsusie_item, "idle", 1],
+		itemready: spr_bsusie_itemready,
+		spell: [spr_bsusie_spell, "idle", 1],
+		spellready: spr_bsusie_spellready,
+		victory: [spr_bsusie_victory, true],
+		spare: [spr_bsusie_act, "idle", 1],
+		attack_eff: spr_bsusie_attackeff,
+	}
+		
+	// system
+	actor_id = o_actor_autumn
     
     // methods
     __get_cardinal = party_m_get_cardinal

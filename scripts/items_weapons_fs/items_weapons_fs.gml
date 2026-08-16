@@ -49,6 +49,8 @@ function item_w_batbat() : item_weapon() constructor {
     
     item_localize("item_w_batbat")
 }
+item_register(item_w_batbat);
+
 function item_w_lw_bat() : item_weapon() constructor {
     name = ["Old Bat"]
 	desc = ["* The bat you've had since the beginning.", "--"]
@@ -59,6 +61,7 @@ function item_w_lw_bat() : item_weapon() constructor {
     
     item_localize("item_w_lw_bat")
 }
+item_register(item_w_lw_bat);
 
 function item_w_vinebat() : item_weapon() constructor {
 	name = ["VineBat"]
@@ -85,6 +88,7 @@ function item_w_vinebat() : item_weapon() constructor {
     
     item_localize("item_w_vinebat")
 }
+item_register(item_w_vinebat);
 
 function item_w_biibat() : item_weapon() constructor {
 	name = ["BiiBat"]
@@ -111,6 +115,7 @@ function item_w_biibat() : item_weapon() constructor {
     
     item_localize("item_w_biibat")
 }
+item_register(item_w_biibat);
 
 function item_w_wireframebat() : item_weapon() constructor {
 	name = ["WireframeBat"]
@@ -137,6 +142,7 @@ function item_w_wireframebat() : item_weapon() constructor {
     
     item_localize("item_w_wireframebat")
 }
+item_register(item_w_wireframebat);
 
 function item_w_battatbat() : item_weapon() constructor {
 	name = ["BattatBat"]
@@ -163,3 +169,4 @@ function item_w_battatbat() : item_weapon() constructor {
     
     item_localize("item_w_battatbat")
 }
+item_register(item_w_battatbat);

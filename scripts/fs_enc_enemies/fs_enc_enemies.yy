@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"fs_enc_enemies",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"fs_enc_enemies",
+  "parent":{
+    "name":"encounterenemies",
+    "path":"folders/Scripts/encounterenemies.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
