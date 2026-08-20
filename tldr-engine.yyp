@@ -1140,6 +1140,7 @@
     {"id":{"name":"snd_locker","path":"sounds/snd_locker/snd_locker.yy",},},
     {"id":{"name":"snd_mercyadd","path":"sounds/snd_mercyadd/snd_mercyadd.yy",},},
     {"id":{"name":"snd_metalhit","path":"sounds/snd_metalhit/snd_metalhit.yy",},},
+    {"id":{"name":"snd_mirrorshatter","path":"sounds/snd_mirrorshatter/snd_mirrorshatter.yy",},},
     {"id":{"name":"snd_noise","path":"sounds/snd_noise/snd_noise.yy",},},
     {"id":{"name":"snd_ominous","path":"sounds/snd_ominous/snd_ominous.yy",},},
     {"id":{"name":"snd_paper_surf","path":"sounds/snd_paper_surf/snd_paper_surf.yy",},},

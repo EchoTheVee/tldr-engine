@@ -13,7 +13,7 @@ execute_code = function()
         ])
 		//cutscene_func(draw_sprite(spr_mirror_shatter_overlay,,0,0))
 	cutscene_instance_create(fade_to_black, 0, 0)
-	cutscene_instance_create(o_mirror_overlay, 0, 160)
+	
 	cutscene_sleep(60)
 	cutscene_dialogue([
 			"* Do you really believe that?",
@@ -184,7 +184,7 @@ cutscene_instance_create(o_text_typer, 320, 100,,{text: dialogue_array_to_string
 	cutscene_func(instance_destroy, o_text_typer)
 	cutscene_dialogue([
 			"{effect(2)}* You shout again, your voice growing hoarse.{effect(0)}",
-        ])
+        ],,,true)
 	cutscene_wait_dialogue_finish()
 	
 	cutscene_instance_create(o_text_typer, 320, 20,,{text: dialogue_array_to_string(
@@ -232,9 +232,13 @@ cutscene_instance_create(o_text_typer, 320, 100,,{text: dialogue_array_to_string
 	"{char(empty)}* Delicate {color(c_orange)}Flower."
 	]),
 	gui: true,
-	center_x: true
+	center_x: true,
 	})
+	cutscene_sleep(20)
 	//draw_sprite(spr_mirror_shatter_overlay)
+	cutscene_instance_create(o_mirror_overlay, 0, 160)
+	cutscene_func(instance_destroy, o_text_typer)
+	cutscene_audio_play(snd_mirrorshatter)
 	
 	cutscene_party_interpolate()
     cutscene_player_canmove(true)
